@@ -8,16 +8,16 @@
 
     <title>Sbidu - Bid And Auction HTML Template</title>
 
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/all.min.css">
-    <link rel="stylesheet" href="./assets/css/animate.css">
-    <link rel="stylesheet" href="./assets/css/nice-select.css">
-    <link rel="stylesheet" href="./assets/css/owl.min.css">
-    <link rel="stylesheet" href="./assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="./assets/css/flaticon.css">
-    <link rel="stylesheet" href="./assets/css/jquery-ui.min.css">
-    <link rel="stylesheet" href="./assets/css/aos.css">
-    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/frontend/assets/css/all.min.css">
+    <link rel="stylesheet" href="/frontend/assets/css/animate.css">
+    <link rel="stylesheet" href="/frontend/assets/css/nice-select.css">
+    <link rel="stylesheet" href="/frontend/assets/css/owl.min.css">
+    <link rel="stylesheet" href="/frontend/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="/frontend/assets/css/flaticon.css">
+    <link rel="stylesheet" href="/frontend/assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/frontend/assets/css/aos.css">
+    <link rel="stylesheet" href="/frontend/assets/css/main.css">
 
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
@@ -71,7 +71,7 @@
                 <div class="header-wrapper">
                     <div class="logo">
                         <a href="./index.html">
-                            <img src="./assets/images/logo/logo.png" alt="logo">
+                            <img src="/frontend/assets/images/logo/logo.png" alt="logo">
                         </a>
                     </div>
                     <ul class="menu ml-auto">
@@ -189,7 +189,7 @@
     <div class="cart-sidebar-area">
         <div class="top-content">
             <a href="index.html" class="logo">
-                <img src="./assets/images/logo/logo2.png" alt="logo">
+                <img src="/frontend/assets/images/logo/logo2.png" alt="logo">
             </a>
             <span class="side-sidebar-close-btn"><i class="fas fa-times"></i></span>
         </div>
@@ -270,7 +270,7 @@
                 </li>
             </ul>
         </div>
-        <div class="bg_img hero-bg bottom_center" data-background="./assets/images/banner/hero-bg.png"></div>
+        <div class="bg_img hero-bg bottom_center" data-background="/frontend/assets/images/banner/hero-bg.png"></div>
     </div>
     <!--============= Hero Section Ends Here =============-->
 
@@ -327,35 +327,35 @@
 
 
     <!--============= Footer Section Starts Here =============-->
-    <footer class="bg_img padding-top oh" data-background="./assets/images/footer/footer-bg.jpg">
+    <footer class="bg_img padding-top oh" data-background="/frontend/assets/images/footer/footer-bg.jpg">
         <div class="footer-top-shape">
-            <img src="./assets/css/img/footer-top-shape.png" alt="css">
+            <img src="/frontend/assets/css/img/footer-top-shape.png" alt="css">
         </div>
         <div class="anime-wrapper">
             <div class="anime-1 plus-anime">
-                <img src="./assets/images/footer/p1.png" alt="footer">
+                <img src="/frontend/assets/images/footer/p1.png" alt="footer">
             </div>
             <div class="anime-2 plus-anime">
-                <img src="./assets/images/footer/p2.png" alt="footer">
+                <img src="/frontend/assets/images/footer/p2.png" alt="footer">
             </div>
             <div class="anime-3 plus-anime">
-                <img src="./assets/images/footer/p3.png" alt="footer">
+                <img src="/frontend/assets/images/footer/p3.png" alt="footer">
             </div>
             <div class="anime-5 zigzag">
-                <img src="./assets/images/footer/c2.png" alt="footer">
+                <img src="/frontend/assets/images/footer/c2.png" alt="footer">
             </div>
             <div class="anime-6 zigzag">
-                <img src="./assets/images/footer/c3.png" alt="footer">
+                <img src="/frontend/assets/images/footer/c3.png" alt="footer">
             </div>
             <div class="anime-7 zigzag">
-                <img src="./assets/images/footer/c4.png" alt="footer">
+                <img src="/frontend/assets/images/footer/c4.png" alt="footer">
             </div>
         </div>
         <div class="newslater-wrapper">
             <div class="container">
                 <div class="newslater-area">
                     <div class="newslater-thumb">
-                        <img src="./assets/images/footer/newslater.png" alt="footer">
+                        <img src="/frontend/assets/images/footer/newslater.png" alt="footer">
                     </div>
                     <div class="newslater-content">
                         <div class="section-header left-style mb-low" data-aos="fade-down" data-aos-duration="1100">
@@ -495,20 +495,20 @@
                 <div class="copyright-area">
                     <div class="footer-bottom-wrapper">
                         <div class="logo">
-                            <a href="index.html"><img src="./assets/images/logo/footer-logo.png" alt="logo"></a>
+                            <a href="index.html"><img src="/frontend/assets/images/logo/footer-logo.png" alt="logo"></a>
                         </div>
                         <ul class="gateway-area">
                             <li>
-                                <a href="#0"><img src="./assets/images/footer/paypal.png" alt="footer"></a>
+                                <a href="#0"><img src="/frontend/assets/images/footer/paypal.png" alt="footer"></a>
                             </li>
                             <li>
-                                <a href="#0"><img src="./assets/images/footer/visa.png" alt="footer"></a>
+                                <a href="#0"><img src="/frontend/assets/images/footer/visa.png" alt="footer"></a>
                             </li>
                             <li>
-                                <a href="#0"><img src="./assets/images/footer/discover.png" alt="footer"></a>
+                                <a href="#0"><img src="/frontend/assets/images/footer/discover.png" alt="footer"></a>
                             </li>
                             <li>
-                                <a href="#0"><img src="./assets/images/footer/mastercard.png" alt="footer"></a>
+                                <a href="#0"><img src="/frontend/assets/images/footer/mastercard.png" alt="footer"></a>
                             </li>
                         </ul>
                         <div class="copyright"><p>&copy; Copyright 2024 | <a href="#0">Sbidu</a> By <a href="#0">Uiaxis</a></p></div>
@@ -521,21 +521,21 @@
 
 
 
-    <script src="./assets/js/jquery-3.3.1.min.js"></script>
-    <script src="./assets/js/modernizr-3.6.0.min.js"></script>
-    <script src="./assets/js/plugins.js"></script>
-    <script src="./assets/js/bootstrap.min.js"></script>
-    <script src="./assets/js/isotope.pkgd.min.js"></script>
-    <script src="./assets/js/aos.js"></script>
-    <script src="./assets/js/wow.min.js"></script>
-    <script src="./assets/js/waypoints.js"></script>
-    <script src="./assets/js/nice-select.js"></script>
-    <script src="./assets/js/counterup.min.js"></script>
-    <script src="./assets/js/owl.min.js"></script>
-    <script src="./assets/js/magnific-popup.min.js"></script>
+    <script src="/frontend/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/frontend/assets/js/modernizr-3.6.0.min.js"></script>
+    <script src="/frontend/assets/js/plugins.js"></script>
+    <script src="/frontend/assets/js/bootstrap.min.js"></script>
+    <script src="/frontend/assets/js/isotope.pkgd.min.js"></script>
+    <script src="/frontend/assets/js/aos.js"></script>
+    <script src="/frontend/assets/js/wow.min.js"></script>
+    <script src="/frontend/assets/js/waypoints.js"></script>
+    <script src="/frontend/assets/js/nice-select.js"></script>
+    <script src="/frontend/assets/js/counterup.min.js"></script>
+    <script src="/frontend/assets/js/owl.min.js"></script>
+    <script src="/frontend/assets/js/magnific-popup.min.js"></script>
     <script src="assets/js/yscountdown.min.js"></script>
     <script src="assets/js/jquery-ui.min.js"></script>
-    <script src="./assets/js/main.js"></script>
+    <script src="/frontend/assets/js/main.js"></script>
 </body>
 
 </html>
