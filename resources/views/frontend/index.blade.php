@@ -109,7 +109,7 @@
                         <li>
                             <a href="#0">Service & Support</a>
                         </li>
-                        
+
                     </ul>
                     <form class="search-form">
                         <input type="text" placeholder="Search for brand, model....">
@@ -446,8 +446,9 @@
                             </ul>
                         </div>
                         <div class="amount-content text-center">
-                            <span class="custom-button"
-                                style="background-color: blue; color: white; padding: 10px 20px; font-size: 18px;">Free</span>
+                            <a href=",/sign-in"> <span class="custom-button"
+                                    style="background-color: blue; color: white; padding: 10px 20px; font-size: 18px;">Free</span></a>
+
                         </div>
                     </div>
                 </div>
@@ -469,8 +470,9 @@
                             </ul>
                         </div>
                         <div class="amount-content text-center">
-                            <span class="custom-button"
-                                style="background-color: blue; color: white; padding: 10px 20px; font-size: 18px;">$99/month</span>
+                            <a href="./sign-in"><span class="custom-button"
+                                    style="background-color: blue; color: white; padding: 10px 20px; font-size: 18px;">$99/month</span></a>
+
                         </div>
                     </div>
                 </div>
@@ -494,8 +496,8 @@
                             </ul>
                         </div>
                         <div class="amount-content text-center">
-                            <span class="custom-button"
-                                style="background-color: blue; color: white; padding: 10px 20px; font-size: 18px;">$120/month</span>
+                            <a href="./sign-in"> <span class="custom-button"
+                                    style="background-color: blue; color: white; padding: 10px 20px; font-size: 18px;">$120/month</span></a>
                         </div>
                     </div>
                 </div>
