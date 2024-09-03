@@ -30,7 +30,7 @@ class AdminController extends Controller
 
             return view('admindashboard.index', );
         } else {
-            return redirect()->route('admin.sign-in');
+            return redirect()->route('admin.login');
         }
     }
 }
