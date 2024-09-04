@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('admin_name')->nullable();
             $table->string('admin_email');
-            $table->string('admin_city' , 50)->nullable();
-            $table->string('admin_number' , 50)->nullable();
-            $table->string('admin_address' , 50)->nullable();
+            $table->string('admin_city', 50)->nullable();
+            $table->string('admin_number', 50)->nullable();
+            $table->string('admin_address', 50)->nullable();
             $table->string('admin_image')->nullable();
             $table->string('password');
             $table->timestamps();
+            
         });
     }
 
