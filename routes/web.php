@@ -26,3 +26,9 @@ Route::view('/admin/setting', 'admindashboard.color-settings')->name('admin.sett
 //admin profile
 Route::get('/admin/profile', [ProfileController::class, 'adminprofile'])->name('admin.profile');
 Route::post('/admin/update-profile', [AdminController::class, 'updateProfile'])->name('admin.updateProfile');
+
+
+
+
+//upload
+Route::view('upload' , 'admindashboard.upload')->name('upload');
