@@ -140,7 +140,7 @@
 						<span class="user-icon">
 							<img src="/admindashboard/vendors/images/photo1.jpg" alt="">
 						</span>
-						<span class="user-name">Ross C. Lopez</span>
+						<span class="user-name">{{Auth::guard('admin')->user()->admin_name}}</span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 						<a class="dropdown-item" href="../admin/profile"><i class="dw dw-user1"></i> Profile</a>
