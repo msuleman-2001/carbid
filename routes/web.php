@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -31,4 +32,4 @@ Route::post('/admin/update-profile', [AdminController::class, 'updateProfile'])-
 
 
 //upload
-Route::view('upload' , 'admindashboard.upload')->name('upload');
+Route::get('/admin/upload', [UploadController::class, 'uplaod'])->name('file.uplaod');
