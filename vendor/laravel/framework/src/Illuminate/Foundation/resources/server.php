@@ -1,7 +1,9 @@
 <?php
 
 $publicPath = getcwd();
-
+$newPath = "";
+if ($publicPath == "c:\\xampp\\htdocs\\carbid\\public")
+    $newPath = "c:\\xampp\\htdocs\\carbid"
 $uri = urldecode(
     parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? ''
 );
@@ -20,4 +22,4 @@ $remoteAddress = $_SERVER['REMOTE_ADDR'].':'.$_SERVER['REMOTE_PORT'];
 
 file_put_contents('php://stdout', "[$formattedDateTime] $remoteAddress [$requestMethod] URI: $uri\n");
 
-require_once $publicPath.'/index.php';
+require_once $newPath.'/index.php';
