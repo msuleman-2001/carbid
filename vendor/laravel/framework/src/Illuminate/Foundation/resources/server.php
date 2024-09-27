@@ -3,7 +3,7 @@
 $publicPath = getcwd();
 if ($publicPath == 'C:\xampp\htdocs\carbid\public')
     $publicPath = 'c:\xampp\htdocs\carbid';
-echo $publicPath;
+//echo $publicPath;
 $uri = urldecode(
     parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? ''
 );
