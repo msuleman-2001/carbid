@@ -18,4 +18,7 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+    php_flag display_errors on
+    php_value error_reporting -1
+    php_value error_log /home/u787830286/public_html/php_error.log
 </IfModule>
