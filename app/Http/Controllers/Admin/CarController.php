@@ -8,9 +8,11 @@ use App\Models\cars;
 class CarController extends Controller
 {
     public function showUploadForm()
-    {
-        return view('admindashboard.upload');
-    }
+{
+    $vehicles = cars::paginate(10);
+    return view('admindashboard.upload', compact('vehicles'));
+}
+
 
    
     public function uploadCsv(Request $request)

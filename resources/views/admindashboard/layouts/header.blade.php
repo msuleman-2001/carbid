@@ -94,7 +94,7 @@
 
     <!-- Adding Upload Card Data Button -->
     <div class="upload-card-data">
-        <a href="/path-to-upload-page" class="btn btn-primary" style="margin-right: 20px; margin-top:20px;">Upload Card Data</a>
+        <a href="/admin/upload" class="btn btn-primary" style="margin-right: 20px; margin-top:20px;">Upload Card Data</a>
     </div>
 
     <!-- Existing User Info Dropdown -->
