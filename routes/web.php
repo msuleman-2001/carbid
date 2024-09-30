@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\UploadController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,5 +33,7 @@ Route::post('/admin/update-profile', [AdminController::class, 'updateProfile'])-
 
 
 //upload
-Route::get('/admin/upload', [UploadController::class, 'uplaod'])->name('uplaod');
-Route::get('/admin/hello', [UploadController::class, 'hello'])->name('hello');
+
+// Route::get('/admin/hello', [UploadController::class, 'hello'])->name('hello');
+Route::get('admin/upload' , [CarController::class, 'showUploadForm']);
+Route::post('/upload', [CarController::class, 'uploadCsv'])->name('cars.upload');

@@ -2,7 +2,7 @@
 <html>
 @include('admindashboard.layouts.header');
 <body>
-	<div class="pre-loader">
+	<!-- <div class="pre-loader">
 		<div class="pre-loader-box">
 			<div class="loader-logo"><img src="/admindashboard/vendors/images/deskapp-logo.svg" alt=""></div>
 			<div class='loader-progress' id="progress_div">
@@ -13,7 +13,7 @@
 				Loading...
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 
 	<div class="right-sidebar">
