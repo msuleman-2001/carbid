@@ -32,4 +32,5 @@ Route::post('/admin/update-profile', [AdminController::class, 'updateProfile'])-
 
 
 //upload
-Route::get('/admin/upload', [UploadController::class, 'uplaod'])->name('file.uplaod');
+Route::get('/admin/upload', [UploadController::class, 'uplaod'])->name('uplaod');
+Route::get('/admin/hello', [UploadController::class, 'hello'])->name('hello');

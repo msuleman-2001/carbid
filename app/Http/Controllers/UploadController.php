@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 
 class UploadController extends Controller
 {
-     public function uplaod(){
+    public function uplaod(){
         return view('admindashboard.upload');
+    }
+    
+    public function hello(){
+        return "hello";
     }
 }
