@@ -10,6 +10,7 @@ class cars extends Model
     use HasFactory;
 
     protected $fillable = [
+        'slug',
         'vehicle_lot_url',
         'vehicle_lot_number',
         'vehicle_retail_value',

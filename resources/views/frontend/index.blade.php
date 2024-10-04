@@ -314,12 +314,12 @@
                                     <div class="col-sm-10 col-md-6 col-lg-4">
                                         <div class="auction-item-2">
                                             <div class="auction-thumb">
-                                                <a href="{{ route('frontend.vehicle-detail', ['id' => $vehicle->id]) }}"><img
+                                                <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}"><img
                                                         src="/frontend/assets/images/auction/car/auction-1.jpg" alt="car"></a>
                                             </div>
                                             <div class="auction-content">
                                                 <h6 class="title">
-                                                    <a href="{{ route('frontend.vehicle-detail', ['id' => $vehicle->id]) }}">{{ $vehicle->vehicle_year }}
+                                                    <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}">{{ $vehicle->vehicle_year }}
                                                         {{ $vehicle->vehicle_make }} {{ $vehicle->vehicle_model }}</a>
                                                 </h6>
                                                 <div class="bid-amount">
@@ -329,7 +329,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="text-center">
-                                                    <a href="{{ route('frontend.vehicle-detail', ['id' => $vehicle->id]) }}" class="custom-button">View Details</a>
+                                                    <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}" class="custom-button">View Details</a>
                                                 </div>
                                             </div>
                                         </div>

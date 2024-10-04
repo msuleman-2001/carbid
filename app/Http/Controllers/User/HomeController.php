@@ -13,10 +13,9 @@ class HomeController extends Controller
         return view('frontend.index' , compact('vehicles'));
     }
 
-    public function vehicle($id){
-        $vehicles = cars::where('id',$id)->first();
+    public function vehicle($slug){
+        $vehicles = cars::where('slug',$slug)->get();
        
-        dd($vehicles);
         if (!$vehicles) {
          abort(404, 'vehicle not found');
      }

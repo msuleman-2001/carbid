@@ -183,6 +183,7 @@
             <thead>
                 <tr>
                     <th>Sr No#</th>
+                    <th>Slug</th>
                     <th>Lot URL</th>
                     <th>Lot Number</th>
                     <th>Retail Value</th>
@@ -207,6 +208,7 @@
                 @foreach ($vehicles as $vehicle)
                     <tr>
                         <td>{{ $vehicle->id }}</td>
+                        <td>{{$vehicle->slug}}</td>
                         <td>{{ $vehicle->vehicle_lot_url }}</td>
                         <td>{{ $vehicle->vehicle_lot_number }}</td>
                         <td>{{ $vehicle->vehicle_retail_value }}</td>

@@ -21,6 +21,36 @@
 
     <link rel="shortcut icon" href="/frontend/assets/images/favicon.png" type="image/x-icon">
 </head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+        background-color: #f4f4f4;
+    }
+
+    .detail-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white;
+    }
+
+    .detail-table th,
+    .detail-table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .detail-table th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .detail-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+</style>
 
 <body>
     <!--============= ScrollToTop Section Starts Here =============-->
@@ -276,126 +306,170 @@
 
     <!--============= Product Details Section Starts Here =============-->
     @foreach($vehicles as $vehicle)
-    <section class="product-details padding-bottom mt--240 mt-lg--440">
-        <div class="container">
-            <div class="product-details-slider-top-wrapper">
-                <div class="product-details-slider owl-theme owl-carousel" id="sync1">
-                    <div class="slide-top-item">
-                        <div class="slide-inner">
-                            <img src="/frontend/assets/images/product/product1.png" alt="product">
+        <section class="product-details padding-bottom mt--240 mt-lg--440">
+            <div class="container">
+                <div class="product-details-slider-top-wrapper">
+                    <div class="product-details-slider owl-theme owl-carousel" id="sync1">
+                        <div class="slide-top-item">
+                            <div class="slide-inner">
+                                <img src="/frontend/assets/images/product/product1.png" alt="product">
+                            </div>
                         </div>
-                    </div>
-                    <div class="slide-top-item">
-                        <div class="slide-inner">
-                            <img src="/frontend/assets/images/product/product2.png" alt="product">
+                        <div class="slide-top-item">
+                            <div class="slide-inner">
+                                <img src="/frontend/assets/images/product/product2.png" alt="product">
+                            </div>
                         </div>
-                    </div>
-                    <div class="slide-top-item">
-                        <div class="slide-inner">
-                            <img src="/frontend/assets/images/product/product3.png" alt="product">
+                        <div class="slide-top-item">
+                            <div class="slide-inner">
+                                <img src="/frontend/assets/images/product/product3.png" alt="product">
+                            </div>
                         </div>
-                    </div>
-                    <div class="slide-top-item">
-                        <div class="slide-inner">
-                            <img src="/frontend/assets/images/product/product4.png" alt="product">
+                        <div class="slide-top-item">
+                            <div class="slide-inner">
+                                <img src="/frontend/assets/images/product/product4.png" alt="product">
+                            </div>
                         </div>
-                    </div>
-                    <div class="slide-top-item">
-                        <div class="slide-inner">
-                            <img src="/frontend/assets/images/product/product5.png" alt="product">
+                        <div class="slide-top-item">
+                            <div class="slide-inner">
+                                <img src="/frontend/assets/images/product/product5.png" alt="product">
+                            </div>
                         </div>
-                    </div>
-                    <div class="slide-top-item">
-                        <div class="slide-inner">
-                            <img src="/frontend/assets/images/product/product6.png" alt="product">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="product-details-slider-wrapper">
-                <div class="product-bottom-slider owl-theme owl-carousel" id="sync2">
-                    <div class="slide-bottom-item">
-                        <div class="slide-inner">
-                            <img src="/frontend/assets/images/product/01.png" alt="product">
-                        </div>
-                    </div>
-                    <div class="slide-bottom-item">
-                        <div class="slide-inner">
-                            <img src="/frontend/assets/images/product/02.png" alt="product">
-                        </div>
-                    </div>
-                    <div class="slide-bottom-item">
-                        <div class="slide-inner">
-                            <img src="/frontend/assets/images/product/03.png" alt="product">
-                        </div>
-                    </div>
-                    <div class="slide-bottom-item">
-                        <div class="slide-inner">
-                            <img src="/frontend/assets/images/product/04.png" alt="product">
-                        </div>
-                    </div>
-                    <div class="slide-bottom-item">
-                        <div class="slide-inner">
-                            <img src="/frontend/assets/images/product/05.png" alt="product">
-                        </div>
-                    </div>
-                    <div class="slide-bottom-item">
-                        <div class="slide-inner">
-                            <img src="/frontend/assets/images/product/06.png" alt="product">
+                        <div class="slide-top-item">
+                            <div class="slide-inner">
+                                <img src="/frontend/assets/images/product/product6.png" alt="product">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <span class="det-prev det-nav">
-                    <i class="fas fa-angle-left"></i>
-                </span>
-                <span class="det-next det-nav active">
-                    <i class="fas fa-angle-right"></i>
-                </span>
-            </div>
-            <div class="row mt-40-60-80">
-                <div class="col-lg-8">
-                    <div class="product-details-content">
-                        <div class="product-details-header">
-                        <h2 class="title">The {{$vehicle->vehicle_make}} {{$vehicle->vehicle_model}}</h2>
-                            <ul>
-                                <li>Listing ID: 14076242</li>
-                                <li>Item #: 7300-3356862</li>
+                <div class="product-details-slider-wrapper">
+                    <div class="product-bottom-slider owl-theme owl-carousel" id="sync2">
+                        <div class="slide-bottom-item">
+                            <div class="slide-inner">
+                                <img src="/frontend/assets/images/product/01.png" alt="product">
+                            </div>
+                        </div>
+                        <div class="slide-bottom-item">
+                            <div class="slide-inner">
+                                <img src="/frontend/assets/images/product/02.png" alt="product">
+                            </div>
+                        </div>
+                        <div class="slide-bottom-item">
+                            <div class="slide-inner">
+                                <img src="/frontend/assets/images/product/03.png" alt="product">
+                            </div>
+                        </div>
+                        <div class="slide-bottom-item">
+                            <div class="slide-inner">
+                                <img src="/frontend/assets/images/product/04.png" alt="product">
+                            </div>
+                        </div>
+                        <div class="slide-bottom-item">
+                            <div class="slide-inner">
+                                <img src="/frontend/assets/images/product/05.png" alt="product">
+                            </div>
+                        </div>
+                        <div class="slide-bottom-item">
+                            <div class="slide-inner">
+                                <img src="/frontend/assets/images/product/06.png" alt="product">
+                            </div>
+                        </div>
+                    </div>
+                    <span class="det-prev det-nav">
+                        <i class="fas fa-angle-left"></i>
+                    </span>
+                    <span class="det-next det-nav active">
+                        <i class="fas fa-angle-right"></i>
+                    </span>
+                </div>
+                <div class="row mt-40-60-80">
+                    <div class="col-lg-8">
+                        <div class="product-details-content">
+                            <div class="product-details-header">
+                                <h2 class="title">The {{$vehicle->vehicle_make}} {{$vehicle->vehicle_model}}</h2>
+                                <ul>
+                                    <li>Listing ID: {{$vehicle->vehicle_lot_number}}</li>
+                                    <li>Item #: {{$vehicle->vehicle_item_number}}</li>
+                                </ul>
+                            </div>
+                            <ul class="price-table mb-30">
+                                <li class="header">
+                                    <h5 class="current">Current Price</h5>
+                                    <h3 class="price">{{$vehicle->vehicle_retail_value}}</h3>
+                                </li>
                             </ul>
+                            <table class="detail-table">
+                                <tr>
+                                    <th>Field</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>Vehicle Sale Date</td>
+                                    <td>{{$vehicle->vehicle_sale_date}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Vehicle Year</td>
+                                    <td>{{$vehicle->vehicle_year}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Vehicle Make</td>
+                                    <td>{{$vehicle->vehicle_make}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Vehicle Model</td>
+                                    <td>{{$vehicle->vehicle_model}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Vehicle Engine Type</td>
+                                    <td>{{$vehicle->vehicle_engine_type}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Vehicle Cylinders</td>
+                                    <td>{{$vehicle->vehicle_cylinders}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Vehicle VIN</td>
+                                    <td>{{$vehicle->vehicle_vin}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Vehicle Title Code</td>
+                                    <td>{{$vehicle->vehicle_title_code}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Vehicle Odometer</td>
+                                    <td>{{$vehicle->vehicle_odometer}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Vehicle Odometer Description</td>
+                                    <td>{{$vehicle->vehicle_odometer_description}}</td>
+                                </tr>
+                                <td>Vehicle Damage Description</td>
+                                <td>{{$vehicle->vehicle_damage_description}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Vehicle Sale Name</td>
+                                    <td>{{$vehicle->vehicle_sale_name}}</td>
+                                </tr>
+                            </table>
                         </div>
-                        <ul class="price-table mb-30">
-                            <li class="header">
-                                <h5 class="current">Current Price</h5>
-                                <h3 class="price">US $700.00</h3>
-                            </li>
-                            <li>
-                                <span class="details">Buyer's Premium</span>
-                                <h5 class="info">10.00%</h5>
-                            </li>
-                            <li>
-                                <span class="details">Bid Increment (US)</span>
-                                <h5 class="info">$50.00</h5>
-                            </li>
-                        </ul>
-                       
                     </div>
-                </div>
-                <div class="col-lg-4">
+                    <div class="col-lg-4">
 
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="details">
-                    <div class="tab-details-content">
-                        <div class="header-area">
+            <div class="container">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="details">
+                        <div class="tab-details-content">
+                            <div class="header-area">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
-    </section>
+            </div>
+        </section>
     @endforeach
     <!--============= Product Details Section Ends Here =============-->
 

@@ -16,7 +16,7 @@ Route::view('/sign-in', 'frontend.sign-in');
 
 //detail page
 // Route::view('/vehicle-detail', 'frontend.vehicle-details')->name('frontend.vehicle-detail');
-Route::get('vehicle-detail/{id}',[HomeController::class, 'vehicle'])->name('frontend.vehicle-detail');
+Route::get('vehicle-detail/{slug}',[HomeController::class, 'vehicle'])->name('frontend.vehicle-detail');
 
 //Admin
 Route::view('/admin/signup', 'admindashboard.sign-up')->name('admin.signup');
