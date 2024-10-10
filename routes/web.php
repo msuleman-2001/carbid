@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\ProfileController;
 
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\ResultController;
 use App\Http\Controllers\User\VehicleController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,8 @@ Route::view('/sign-in', 'frontend.sign-in');
 // Route::view('/vehicle-detail', 'frontend.vehicle-details')->name('frontend.vehicle-detail');
 Route::get('vehicle-detail/{slug}',[HomeController::class, 'vehicle'])->name('frontend.vehicle-detail');
 
+//result page
+Route::get('/search',[ResultController::class , 'result']);
 //Admin
 Route::view('/admin/signup', 'admindashboard.sign-up')->name('admin.signup');
 Route::view('/admin/login', 'admindashboard.login-in')->name('admin.login');
