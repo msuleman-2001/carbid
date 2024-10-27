@@ -1,85 +1,73 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\cars;
+use App\Models\Car;
+use Illuminate\Support\Str;
+use League\Csv\Reader;
+
 class CarController extends Controller
 {
     public function showUploadForm()
-{
-    $vehicles = cars::paginate(10);
-    return view('admindashboard.upload', compact('vehicles'));
-}
-
-private function createUniqueSlug($model, $field, $value)
-{
-    // Generate the initial slug using vehicle_make and vehicle_model
-    $slug = Str::slug($value);
-
-    // Check if the slug already exists in the database
-    $count = DB::table($model)
-        ->where($field, 'like', $slug . '%')
-        ->count();
-
-    // If a similar slug exists, append a number to make it unique
-    if ($count > 0) {
-        $slug = $slug . '-' . ($count + 1);
+    {
+        $vehicles = Car::paginate(10);
+        return view('admindashboard.upload', compact('vehicles'));
     }
-
-    return $slug;
-}
-
-public function uploadCsv(Request $request)
+    public function uploadCSV(Request $request)
 {
     // Validate the uploaded file
     $request->validate([
-        'csv_file' => 'required|file|mimes:csv,txt',
+        'csv_file' => 'required|file|mimes:csv,txt|max:2048',
     ]);
 
-    // Get the file
-    $file = $request->file('csv_file');
+    try {
+        // Load the CSV
+        $file = $request->file('csv_file');
+        $csv = Reader::createFromPath($file->getRealPath(), 'r');
+        $csv->setHeaderOffset(0); // Use first row as header
 
-    // Open the file and read the contents
-    if (($handle = fopen($file, 'r')) !== false) {
-        // Skip the header row if it exists
-        fgetcsv($handle);
+        // Iterate through the CSV records
+        foreach ($csv->getRecords() as $record) {
+            // Trim all field values
+            $data = array_map('trim', $record);
 
-        // Process each row of the file
-        while (($data = fgetcsv($handle, 1000, ',')) !== false) {
-            // Generate a unique slug using vehicle_make and vehicle_model
-            $slug = $this->createUniqueSlug('cars', 'slug', $data[5] . '-' . $data[6]) . '-' . $data[4];
+            // Extract image URLs
+            $images = explode(',', trim($data['images'], "[]\""));  // Clean and split URLs
+            $images = array_map('trim', $images);  // Ensure each URL is properly trimmed
+
+            // Generate slug from make, model, and year
+            $slug = Str::slug(
+                "{$data['make']}-{$data['model']}-{$data['year']}"
+            );
 
             // Insert data into the database
-            cars::create([
-                'vehicle_lot_url' => $data[0],
-                'vehicle_lot_number' => $data[1],
-                'vehicle_retail_value' => $data[2],
-                'vehicle_sale_date' => $data[3],
-                'vehicle_year' => $data[4],
-                'vehicle_make' => $data[5],
-                'vehicle_model' => $data[6],
-                'vehicle_engine_type' => $data[7],
-                'vehicle_cylinders' => $data[8],
-                'vehicle_vin' => $data[9],
-                'vehicle_title_code' => $data[10],
-                'vehicle_odometer' => $data[11],
-                'vehicle_odometer_description' => $data[12],
-                'vehicle_damage_description' => $data[13],
-                'vehicle_current_bid' => $data[14],
-                'vehicle_my_bid' => $data[15],
-                'vehicle_item_number' => $data[16],
-                'vehicle_sale_name' => $data[17],
-                'slug' => $slug, // Add the unique slug here
+            Car::create([
+                'url' => $data['url'] ?? null,
+                'vin' => $data['vin'] ?? null,
+                'lot_number' => $data['lot_number'] ?? null,
+                'auction' => $data['auction'] ?? null,
+                'country' => $data['country'] ?? null,
+                'sale_branch' => $data['sale_branch'] ?? null,
+                'year' => $data['year'] ?? null,
+                'make' => $data['make'] ?? null,
+                'model' => $data['model'] ?? null,
+                'color' => $data['color'] ?? null,
+                'bodytype' => $data['bodytype'] ?? null,
+                'drive' => $data['drive'] ?? null,
+                'fuel' => $data['fuel'] ?? null,
+                'engine' => $data['engine'] ?? null,
+                'transmission' => $data['transmission'] ?? null,
+                // Store image URLs as JSON without unnecessary escaping
+                'images' => json_encode($images, JSON_UNESCAPED_SLASHES),
+                'slug' => $slug,
             ]);
         }
 
-        fclose($handle);
+        return redirect()->back()->with('success', 'CSV uploaded and data stored successfully.');
+    } catch (\Exception $e) {
+        return redirect()->back()->withErrors(['error' => 'An error occurred: ' . $e->getMessage()]);
     }
-
-    return redirect()->back()->with('success', 'CSV file uploaded and data stored successfully!');
 }
-
 }

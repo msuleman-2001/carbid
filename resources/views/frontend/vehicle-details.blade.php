@@ -386,10 +386,10 @@
                     <div class="col-lg-8">
                         <div class="product-details-content">
                             <div class="product-details-header">
-                                <h2 class="title">The {{$vehicle->vehicle_make}} {{$vehicle->vehicle_model}}</h2>
+                                <h2 class="title">The {{$vehicle->make}} {{$vehicle->_model}}</h2>
                                 <ul>
-                                    <li>Listing ID: {{$vehicle->vehicle_lot_number}}</li>
-                                    <li>Item #: {{$vehicle->vehicle_item_number}}</li>
+                                    <li>Listing ID: {{$vehicle->lot_number}}</li>
+                                    <li>Item #: {{$vehicle->item_number}}</li>
                                 </ul>
                             </div>
                             <ul class="price-table mb-30">
@@ -404,12 +404,12 @@
                                     <th>Value</th>
                                 </tr>
                                 <tr>
-                                    <td>Vehicle Sale Date</td>
-                                    <td>{{$vehicle->vehicle_sale_date}}</td>
+                                    <td>vin</td>
+                                    <td>{{$vehicle->vin}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Vehicle Year</td>
-                                    <td>{{$vehicle->vehicle_year}}</td>
+                                    <td>country</td>
+                                    <td>{{$vehicle->country}}</td>
                                 </tr>
                                 <tr>
                                     <td>Vehicle Make</td>

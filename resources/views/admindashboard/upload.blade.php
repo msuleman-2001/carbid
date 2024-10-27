@@ -184,24 +184,24 @@
                 <tr>
                     <th>Sr No#</th>
                     <th>Slug</th>
-                    <th>Lot URL</th>
-                    <th>Lot Number</th>
-                    <th>Retail Value</th>
-                    <th>Sale Date</th>
+                    <th>URL</th>
+                    <th>VIN</th>
+                    <th>Lot_Number</th>
+                    <th>Auction</th>
+                    <th>Country</th>
+                    <th>Sale Branch</th>
+                    <th>Seller</th>
+                    <th>Auction Date</th>
                     <th>Year</th>
                     <th>Make</th>
                     <th>Model</th>
-                    <th>Engine Type</th>
-                    <th>Cylinders</th>
-                    <th>VIN</th>
-                    <th>Title Code</th>
-                    <th>Odometer</th>
-                    <th>Odometer Desc</th>
-                    <th>Damage Desc</th>
-                    <th>Current Bid</th>
-                    <th>My Bid</th>
-                    <th>Item Number</th>
-                    <th>Sale Name</th>
+                    <th>Color</th>
+                    <th>Body Type</th>
+                    <th>Drive</th>
+                    <th>Fuel</th>
+                    <th>Engine</th>
+                    <th>Transmission</th>
+                    <th>Images</th>
                 </tr>
             </thead>
             <tbody>
@@ -209,24 +209,25 @@
                     <tr>
                         <td>{{ $vehicle->id }}</td>
                         <td>{{$vehicle->slug}}</td>
-                        <td>{{ $vehicle->vehicle_lot_url }}</td>
-                        <td>{{ $vehicle->vehicle_lot_number }}</td>
-                        <td>{{ $vehicle->vehicle_retail_value }}</td>
-                        <td>{{ $vehicle->vehicle_sale_date }}</td>
-                        <td>{{ $vehicle->vehicle_year }}</td>
-                        <td>{{ $vehicle->vehicle_make }}</td>
-                        <td>{{ $vehicle->vehicle_model }}</td>
-                        <td>{{ $vehicle->vehicle_engine_type }}</td>
-                        <td>{{ $vehicle->vehicle_cylinders }}</td>
-                        <td>{{ $vehicle->vehicle_vin }}</td>
-                        <td>{{ $vehicle->vehicle_title_code }}</td>
-                        <td>{{ $vehicle->vehicle_odometer }}</td>
-                        <td>{{ $vehicle->vehicle_odometer_description }}</td>
-                        <td>{{ $vehicle->vehicle_damage_description }}</td>
-                        <td>{{ $vehicle->vehicle_current_bid }}</td>
-                        <td>{{ $vehicle->vehicle_my_bid }}</td>
-                        <td>{{ $vehicle->vehicle_item_number }}</td>
-                        <td>{{ $vehicle->vehicle_sale_name }}</td>
+                        <td>{{ $vehicle->url}}</td>
+                        <td>{{ $vehicle->vin}}</td>
+                        <td>{{ $vehicle->lot_number }}</td>
+                        <td>{{ $vehicle->auction}}</td>
+                        <td>{{ $vehicle->country}}</td>
+                        <td>{{ $vehicle->sale_branch}}</td>
+                        <td>{{ $vehicle->seller}}</td>
+                        <td>{{ $vehicle->auction_date}}</td>
+                        <td>{{ $vehicle->year}}</td>
+                        <td>{{ $vehicle->make}}</td>
+                        <td>{{ $vehicle->model}}</td>
+                        <td>{{ $vehicle->color}}</td>
+                        <td>{{ $vehicle->bodytype}}</td>
+                        <td>{{ $vehicle->drive}}</td>
+                        <td>{{ $vehicle->fuel}}</td>
+                        <td>{{ $vehicle->engine}}</td>
+                        <td>{{ $vehicle->transmission}}</td>
+                        <td>{{$vehicle->images}}</td>
+                       
                     </tr>
                 @endforeach
             </tbody>

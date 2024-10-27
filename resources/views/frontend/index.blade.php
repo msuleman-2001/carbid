@@ -247,52 +247,9 @@
         </div>
     </section>
     <!--============= Banner Section Ends Here =============-->
-
-
     <div class="browse-section ash-bg">
         <!--============= Hightlight Slider Section Starts Here =============-->
-        <!-- <div class="browse-slider-section mt--140">
-            <div class="container">
-                <div class="section-header-2 cl-white mb-4">
-                    <div class="left" data-aos="flip-up" data-aos-duration="1500">
-                        <h6 class="title pl-0 w-100">Browse the highlights</h6>
-                    </div>
-                    <div class="slider-nav">
-                        <a href="#0" class="bro-prev"><i class="flaticon-left-arrow"></i></a>
-                        <a href="#0" class="bro-next active"><i class="flaticon-right-arrow"></i></a>
-                    </div>
-                </div>
-                <div class="m--15">
-                    <div class="browse-slider owl-theme owl-carousel">
-                        <a href="#0" class="browse-item">
-                            <img src="/frontend/assets/images/auction/01.png" alt="auction">
-                            <span class="info">Vehicles</span>
-                        </a>
-                        <a href="#0" class="browse-item">
-                            <img src="/frontend/assets/images/auction/02.png" alt="auction">
-                            <span class="info">Jewelry</span>
-                        </a>
-                        <a href="#0" class="browse-item">
-                            <img src="/frontend/assets/images/auction/03.png" alt="auction">
-                            <span class="info">Watches</span>
-                        </a>
-                        <a href="#0" class="browse-item">
-                            <img src="/frontend/assets/images/auction/04.png" alt="auction">
-                            <span class="info">Electronics</span>
-                        </a>
-                        <a href="#0" class="browse-item">
-                            <img src="/frontend/assets/images/auction/05.png" alt="auction">
-                            <span class="info">Sports</span>
-                        </a>
-                        <a href="#0" class="browse-item">
-                            <img src="/frontend/assets/images/auction/06.png" alt="auction">
-                            <span class="info">Real Estate</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <!--============= Hightlight Slider Section Ends Here =============-->
+
         <br>
         <!--============= Car Auction Section Starts Here =============-->
         @php
@@ -301,43 +258,54 @@
         @endphp
 
         <div class="slider-container">
-            <!-- Left Arrow -->
-            <button id="prev" class="slider-arrow" style="display: none;">&#10094;</button>
-
             <div class="all-containers">
                 @foreach($chunks as $index => $vehicleChunk)
-                    <section class="vehicle-container" id="container-{{ $index }}"
-                        style="display: {{ $index == 0 ? 'block' : 'none' }};">
-                        <div class="container">
-                            <div class="row justify-content-center mb-30-none">
-                                @foreach($vehicleChunk as $vehicle)
-                                    <div class="col-sm-10 col-md-6 col-lg-4">
-                                        <div class="auction-item-2">
-                                            <div class="auction-thumb">
-                                                <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}"><img
-                                                        src="/frontend/assets/images/auction/car/auction-1.jpg" alt="car"></a>
-                                            </div>
-                                            <div class="auction-content">
-                                                <h6 class="title">
-                                                    <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}">{{ $vehicle->vehicle_year }}
-                                                        {{ $vehicle->vehicle_make }} {{ $vehicle->vehicle_model }}</a>
-                                                </h6>
-                                                <div class="bid-amount">
-                                                    <div class="amount-content">
-                                                        <div class="current">Retail Value</div>
-                                                        <div class="amount">{{ $vehicle->vehicle_retail_value }}</div>
-                                                    </div>
-                                                </div>
-                                                <div class="text-center">
-                                                    <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}" class="custom-button">View Details</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <section class="vehicle-container" id="container-{{ $index }}"
+                                style="display: {{ $index == 0 ? 'block' : 'none' }};">
+                                <div class="container">
+                                    <div class="row justify-content-center mb-30-none">
+                                        @foreach($vehicleChunk as $vehicle)
+                                                                @php
+                                                                    // Decode the images JSON to extract the first image
+                                                                    $images = json_decode($vehicle->images, true);
+
+                                                                    // Get the first image, ensure to trim both leading and trailing quotes
+                                                                    $firstImage = isset($images[0]) ? trim($images[0], "'") : '/frontend/assets/images/auction/car/default-image.jpg';
+                                                                @endphp
+
+                                                                <div class="col-sm-10 col-md-6 col-lg-4">
+                                                                    <div class="auction-item-2">
+                                                                        <div class="auction-thumb">
+                                                                            <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}">
+                                                                                <img src="{{ $firstImage }}"
+                                                                                    alt="{{ $vehicle->make }} {{ $vehicle->model }}" class="img-fluid">
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="auction-content p-3">
+                                                                            <h6 class="title mb-2">
+                                                                                <a
+                                                                                    href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}">
+                                                                                    {{ $vehicle->make }} {{ $vehicle->model }}
+                                                                                </a>
+                                                                            </h6>
+
+                                                                            <div class="bid-amount text-muted mb-2">
+                                                                                <p><strong>Year:</strong> {{ $vehicle->year }}</p>
+                                                                                <p><strong>Engine:</strong> {{ $vehicle->engine }}</p>
+                                                                                <p><strong>Lot#:</strong> {{ $vehicle->lot_number }}</p>
+                                                                            </div>
+
+                                                                            <div class="text-center">
+                                                                                <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}"
+                                                                                    class="custom-button btn btn-primary w-100">View Details</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                        @endforeach
                                     </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </section>
+                                </div>
+                            </section>
                 @endforeach
             </div>
             <script>
@@ -369,9 +337,8 @@
 
                 checkButtons(); // Initial check to hide/show arrows on page load
             </script>
-
-            <!--============= Car Auction Section Ends Here =============-->
         </div>
+
         <!--============= Watches Auction Section Starts Here =============-->
         <section class="watches-auction-section padding-bottom padding-top">
             <div class="container">
