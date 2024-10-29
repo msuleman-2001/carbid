@@ -40,8 +40,18 @@ Route::get('/admin/profile', [ProfileController::class, 'adminprofile'])->name('
 Route::post('/admin/update-profile', [AdminController::class, 'updateProfile'])->name('admin.updateProfile');
 
 
-
-
+//filter 
+Route::get('/get-cars', [ResultController::class, 'getCars']);
+Route::get('/get-makes', [ResultController::class, 'getMakes'])->name('cars.getMakes');
+Route::get('/get-models', [ResultController::class, 'getModels'])->name('cars.getModels');
+Route::get('/get-colors', [ResultController::class, 'getColors'])->name('cars.getColors');
+Route::get('/get-bodytypes', [ResultController::class, 'getBodyTypes'])->name('cars.getBodyTypes');
+Route::get('/get-salebranches', [ResultController::class, 'getSaleBranch'])->name('cars.getSaleBranch');
+Route::get('/get-drives', [ResultController::class, 'getDrive'])->name('cars.getDrive');
+Route::get('/get-fuels', [ResultController::class, 'getFuels'])->name('cars.getFuels');
+Route::get('/get-engines', [ResultController::class, 'getEngines'])->name('cars.getEngines');
+Route::get('/get-transmissions', [ResultController::class, 'getTransmissions'])->name('cars.getTransmissions');
+Route::get('/get-auctions', [ResultController::class, 'getAuctions'])->name('cars.getAuctions');
 //upload
 
 // Route::get('/admin/hello', [UploadController::class, 'hello'])->name('hello');

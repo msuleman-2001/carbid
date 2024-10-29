@@ -18,7 +18,14 @@
     <link rel="stylesheet" href="/frontend/assets/css/jquery-ui.min.css">
     <link rel="stylesheet" href="/frontend/assets/css/aos.css">
     <link rel="stylesheet" href="/frontend/assets/css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('js/filters.js') }}"></script>
     <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
 </head>
 <style>
@@ -180,23 +187,9 @@
                     </div>
                     <ul class="menu ml-auto">
                         <li>
-                            <a href="#0">Home</a>
-                            <ul class="submenu">
-                                <li>
-                                    <a href="./index.html">Home Page One</a>
-                                </li>
-                                <li>
-                                    <a href="./index-2.html">Home Page Two</a>
-                                </li>
-                                <li>
-                                    <a href="./index-3.html">Home Page Three</a>
-                                </li>
-                                <li>
-                                    <a href="./index-4.html">Home Page Four</a>
-                                </li>
-                                <li>
-                                    <a href="./index-5.html">Home Page Five</a>
-                                </li>
+                            <a href="/">Home</a>
+                            <ul class="">
+
                             </ul>
                         </li>
                         <li>
@@ -378,9 +371,8 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <div class="d-flex align-items-center">
                                 <h5 class="filter-title text-primary me-2">Search Filters</h5>
-                                <!-- <i class="fas fa-sliders-h text-primary"></i> -->
                             </div>
-                            <a href="#" class="text-primary">Reset All</a>
+                            <a href="#" class="text-primary" id="reset-all">Reset All</a>
                         </div>
 
                         <!-- Switch Filters -->
@@ -415,265 +407,184 @@
                         <!-- Dropdown Filters -->
                         <div class="filter-dropdown mb-3">
                             <div class="d-flex justify-content-between">
-                                <span>Vehicle Title Type</span>
+                                <span>Sale Branch</span>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter1">
-                                        <i class="fas fa-plus"></i>
+                                    <a href="#" id="reset-salebranch" class="text-primary me-2">Reset</a>
+                                    <button class="btn btn-link p-0" id="fetch-salebranches">
+                                        <i class="fas fa-plus"></i> <!-- Icon to toggle between + and - -->
                                     </button>
                                 </div>
                             </div>
-                            <div id="filter1" class="collapse">
-                                <!-- Content for Vehicle Title Type Filter -->
+                            <div id="filter10" class="collapse">
+                                <div id="salebranch-list"></div>
                             </div>
                         </div>
 
-                        <div class="filter-dropdown mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>Odometer</span>
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter2">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="filter2" class="collapse">
-                                <!-- Content for Odometer Filter -->
-                            </div>
-                        </div>
 
+                        <!-- Bootstrap Collapse Year Filter -->
                         <div class="filter-dropdown mb-3">
                             <div class="d-flex justify-content-between">
                                 <span>Year</span>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter3">
+                                    <a href="#" class="text-primary me-2" onclick="resetYears()">Reset</a>
+                                    <button class="btn btn-link p-0" data-bs-toggle="collapse" data-bs-target="#filter3"
+                                        aria-expanded="false" aria-controls="filter3">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
-                            <div id="filter3" class="collapse">
-                                <!-- Content for Year Filter -->
+
+                            <div id="filter3" class="collapse mt-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <label for="minYear" class="form-label">Min</label>
+                                        <select id="minYear" class="form-select" aria-label="Min Year"></select>
+                                    </div>
+                                    <span class="mx-2">-</span>
+                                    <div>
+                                        <label for="maxYear" class="form-label">Max</label>
+                                        <select id="maxYear" class="form-select" aria-label="Max Year"></select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="filter-dropdown mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>Vehicle Condition Type</span>
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter4">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="filter4" class="collapse">
-                                <!-- Content for Vehicle Condition Type Filter -->
-                            </div>
-                        </div>
-
-                        <div class="filter-dropdown mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>Search Near ZIP Code</span>
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter5">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="filter5" class="collapse">
-                                <!-- Content for ZIP Code Filter -->
-                            </div>
-                        </div>
-
-                        <div class="filter-dropdown mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>Vehicle Type</span>
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter6">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="filter6" class="collapse">
-                                <!-- Content for Vehicle Type Filter -->
-                            </div>
-                        </div>
                         <div class="filter-dropdown mb-3">
                             <div class="d-flex justify-content-between">
                                 <span>Make</span>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter6">
-                                        <i class="fas fa-plus"></i>
+                                    <a href="#" id="reset-make" class="text-primary me-2">Reset</a>
+                                    <button class="btn btn-link p-0" id="fetch-makes">
+                                        <i class="fas fa-plus"></i> <!-- Icon to toggle between + and - -->
                                     </button>
                                 </div>
                             </div>
                             <div id="filter6" class="collapse">
-                               
+                                <div id="make-list"></div> <!-- List to display the makes -->
                             </div>
                         </div>
+                        <!-- Model Filter -->
                         <div class="filter-dropdown mb-3">
                             <div class="d-flex justify-content-between">
                                 <span>Model</span>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter6">
-                                        <i class="fas fa-plus"></i>
+                                    <a href="#" id="reset-model" class="text-primary me-2">Reset</a>
+                                    <button class="btn btn-link p-0" id="fetch-models">
+                                        <i class="fas fa-plus"></i> <!-- Icon to toggle between + and - -->
                                     </button>
                                 </div>
                             </div>
-                            <div id="filter6" class="collapse">
-                                <!-- Content for Vehicle Type Filter -->
+                            <div id="filter7" class="collapse">
+                                <div id="model-list"></div>
+                            </div>
+                        </div>
+                        <!-- Color Filter -->
+                        <div class="filter-dropdown mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Color</span>
+                                <div class="d-flex align-items-center">
+                                    <a href="#" id="reset-color" class="text-primary me-2">Reset</a>
+                                    <button class="btn btn-link p-0" id="fetch-colors">
+                                        <i class="fas fa-plus"></i> <!-- Icon to toggle between + and - -->
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="filter8" class="collapse">
+                                <div id="color-list"></div>
+                            </div>
+                        </div>
+
+                        <div class="filter-dropdown mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Body type</span>
+                                <div class="d-flex align-items-center">
+                                    <a href="#" id="reset-bodytype" class="text-primary me-2">Reset</a>
+                                    <button class="btn btn-link p-0" id="fetch-bodytypes">
+                                        <i class="fas fa-plus"></i> <!-- Icon to toggle between + and - -->
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="filter9" class="collapse">
+                                <div id="bodytype-list"></div>
+                            </div>
+                        </div>
+
+                        <div class="filter-dropdown mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Drive</span>
+                                <div class="d-flex align-items-center">
+                                    <a href="#" id="reset-drive" class="text-primary me-2">Reset</a>
+                                    <button class="btn btn-link p-0" id="fetch-drives">
+                                        <i class="fas fa-plus"></i> <!-- Icon to toggle between + and - -->
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="filter11" class="collapse">
+                                <div id="drive-list"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="filter-dropdown mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Fuel</span>
+                                <div class="d-flex align-items-center">
+                                    <a href="#" id="reset-fuel" class="text-primary me-2">Reset</a>
+                                    <button class="btn btn-link p-0" id="fetch-fuels">
+                                        <i class="fas fa-plus"></i> <!-- Icon to toggle between + and - -->
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="filter12" class="collapse">
+                                <div id="fuel-list"></div>
                             </div>
                         </div>
                         <div class="filter-dropdown mb-3">
                             <div class="d-flex justify-content-between">
-                                <span>Engine Type</span>
+                                <span>Engine</span>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter6">
-                                        <i class="fas fa-plus"></i>
+                                    <a href="#" id="reset-engine" class="text-primary me-2">Reset</a>
+                                    <button class="btn btn-link p-0" id="fetch-engines">
+                                        <i class="fas fa-plus"></i> <!-- Icon to toggle between + and - -->
                                     </button>
                                 </div>
                             </div>
-                            <div id="filter6" class="collapse">
-                                <!-- Content for Vehicle Type Filter -->
+                            <div id="filter13" class="collapse">
+                                <div id="engine-list"></div>
                             </div>
                         </div>
+
                         <div class="filter-dropdown mb-3">
                             <div class="d-flex justify-content-between">
                                 <span>Transmission</span>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter6">
-                                        <i class="fas fa-plus"></i>
+                                    <a href="#" id="reset-transmission" class="text-primary me-2">Reset</a>
+                                    <button class="btn btn-link p-0" id="fetch-transmissions">
+                                        <i class="fas fa-plus"></i> <!-- Icon to toggle between + and - -->
                                     </button>
                                 </div>
                             </div>
-                            <div id="filter6" class="collapse">
-                                <!-- Content for Vehicle Type Filter -->
-                            </div>
-                        </div>
-                        <div class="filter-dropdown mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>Fuel Type</span>
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter6">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="filter6" class="collapse">
-                                <!-- Content for Vehicle Type Filter -->
-                            </div>
-                        </div>
-                        <div class="filter-dropdown mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>Drive Train</span>
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter6">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="filter6" class="collapse">
-                                <!-- Content for Vehicle Type Filter -->
-                            </div>
-                        </div>
-                        <div class="filter-dropdown mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>Cylinder</span>
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter6">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="filter6" class="collapse">
-                                <!-- Content for Vehicle Type Filter -->
-                            </div>
-                        </div>
-                        <div class="filter-dropdown mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>Auction Name</span>
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter6">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="filter6" class="collapse">
-                            <div class="filter-dropdown mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>Location</span>
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter6">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="filter6" class="collapse">
-                            <div class="filter-dropdown mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>Body Style</span>
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter6">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="filter6" class="collapse">
-                            <div class="filter-dropdown mb-3">
-                            <div class="d-flex justify-content-between">
-                                <span>Sale Date</span>
-                                <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
-                                        data-bs-target="#filter6">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div id="filter6" class="collapse">
-                               
+                            <div id="filter14" class="collapse">
+                                <div id="transmission-list"></div>
                             </div>
                         </div>
 
+                        <!-- Auction
+                        <div class="filter-dropdown mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>Auction</span>
+                                <div class="d-flex align-items-center">
+                                    <a href="#" id="reset-auction" class="text-primary me-2">Reset</a>
+                                    <button class="btn btn-link p-0" id="fetch-auctions">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="filter15" class="collapse">
+                             <div id="auction-list"></div>
                             </div>
                         </div>
-
-                            </div>
-                        </div>
-
-                            </div>
-                        </div>
-
+                        -->
                     </div>
 
 
@@ -739,7 +650,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-30-none justify-content-center">
+                    <div id="car-list" class="row mb-30-none justify-content-center">
                         <!-- Content Below Header -->
                         <!-- Container with Shadow -->
                         <div class="container auction-card shadow p-3 mb-4 bg-white rounded">

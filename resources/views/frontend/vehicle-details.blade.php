@@ -412,44 +412,41 @@
                                     <td>{{$vehicle->country}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Vehicle Make</td>
-                                    <td>{{$vehicle->vehicle_make}}</td>
+                                    <td> Make</td>
+                                    <td>{{$vehicle->make}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Vehicle Model</td>
-                                    <td>{{$vehicle->vehicle_model}}</td>
+                                    <td>Model</td>
+                                    <td>{{$vehicle->model}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Vehicle Engine Type</td>
-                                    <td>{{$vehicle->vehicle_engine_type}}</td>
+                                    <td>Body Type</td>
+                                    <td>{{$vehicle->bodytype}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Vehicle Cylinders</td>
-                                    <td>{{$vehicle->vehicle_cylinders}}</td>
+                                    <td>Drive</td>
+                                    <td>{{$vehicle->drive}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Vehicle VIN</td>
-                                    <td>{{$vehicle->vehicle_vin}}</td>
+                                    <td>Fuel</td>
+                                    <td>{{$vehicle->fuel}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Vehicle Title Code</td>
-                                    <td>{{$vehicle->vehicle_title_code}}</td>
+                                    <td>Engine</td>
+                                    <td>{{$vehicle->engine}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Vehicle Odometer</td>
-                                    <td>{{$vehicle->vehicle_odometer}}</td>
+                                    <td>transmission</td>
+                                    <td>{{$vehicle->transmission}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Vehicle Odometer Description</td>
-                                    <td>{{$vehicle->vehicle_odometer_description}}</td>
+                                    <td>Auction</td>
+                                    <td>{{$vehicle->auction}}</td>
                                 </tr>
-                                <td>Vehicle Damage Description</td>
-                                <td>{{$vehicle->vehicle_damage_description}}</td>
+                                <td>Sale Branch</td>
+                                <td>{{$vehicle->sale_branch}}</td>
                                 </tr>
-                                <tr>
-                                    <td>Vehicle Sale Name</td>
-                                    <td>{{$vehicle->vehicle_sale_name}}</td>
-                                </tr>
+                            
                             </table>
                         </div>
                     </div>
