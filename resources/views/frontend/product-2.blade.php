@@ -426,15 +426,15 @@
                             <div class="d-flex justify-content-between">
                                 <span>Year</span>
                                 <div class="d-flex align-items-center">
-                                    <a href="#" class="text-primary me-2" onclick="resetYears()">Reset</a>
-                                    <button class="btn btn-link p-0" data-bs-toggle="collapse" data-bs-target="#filter3"
-                                        aria-expanded="false" aria-controls="filter3">
+                                    <a href="#" id="reset-year" class="text-primary me-2"
+                                        onclick="resetYears()">Reset</a>
+                                    <button class="btn btn-link p-0" data-bs-toggle="collapse"
+                                        data-bs-target="#filter-year" aria-expanded="false" aria-controls="filter-year">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
-
-                            <div id="filter3" class="collapse mt-3">
+                            <div id="filter-year" class="collapse mt-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <label for="minYear" class="form-label">Min</label>
@@ -448,6 +448,9 @@
                                 </div>
                             </div>
                         </div>
+
+
+
 
                         <div class="filter-dropdown mb-3">
                             <div class="d-flex justify-content-between">
@@ -475,7 +478,7 @@
                                 </div>
                             </div>
                             <div id="filter7" class="collapse">
-                                <div id="model-list"></div>
+                                <div id="model-list"></div> <!-- List to display the makes -->
                             </div>
                         </div>
                         <!-- Color Filter -->
@@ -651,8 +654,6 @@
                         </div>
                     </div>
                     <div id="car-list" class="row mb-30-none justify-content-center">
-                        <!-- Content Below Header -->
-                        <!-- Container with Shadow -->
                         <div class="container auction-card shadow p-3 mb-4 bg-white rounded">
                             <div class="row text-center align-items-start">
                                 <!-- Image Section -->
@@ -666,33 +667,28 @@
                                 <!-- Lot Info Section -->
                                 <div class="col">
                                     <div class="lot-info">
-                                        <p>Lot #: 72331034</p>
-                                        <p>Item #: 7367</p>
+
                                     </div>
                                 </div>
 
                                 <!-- Vehicle Info Section -->
                                 <div class="col">
                                     <div class="vehicle-info">
-                                        <p>Honda</p>
-                                        <p>Accord</p>
-                                        <p>2001</p>
+
                                     </div>
                                 </div>
 
                                 <!-- Condition Section -->
                                 <div class="col">
                                     <div class="condition-info">
-                                        <p>59276 miles</p>
-                                        <p>Normal Wear</p>
-                                        <p>Yes</p>
+
                                     </div>
                                 </div>
 
                                 <!-- Sale Info Section -->
                                 <div class="col">
-                                    <div class="sale-info">
-                                        <p>$80.00 USD</p>
+                                    <div class="engine-info">
+
                                     </div>
                                 </div>
 
@@ -949,6 +945,9 @@
     <script src="assets/js/yscountdown.min.js"></script>
     <script src="assets/js/jquery-ui.min.js"></script>
     <script src="/frontend/assets/js/main.js"></script>
+
+
+    </script>
 </body>
 
 </html>

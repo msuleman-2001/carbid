@@ -14,24 +14,56 @@ class ResultController extends Controller
     }
 
     public function getCars(Request $request)
-{
-    $query = Car::query(); // Start building the query
+    {
+        $query = Car::query(); // Start building the query
+    
+        // Apply filters if provided
+        if ($request->has('sale_branches') && !empty($request->sale_branches)) {
+            $query->whereIn('sale_branch', $request->sale_branches);
+        }
+        if ($request->has('makes') && !empty($request->makes)) {
+            $query->whereIn('make', $request->makes);
+        }
+        
+        if ($request->has('models') && !empty($request->models)) {
+            $query->whereIn('model', $request->models);
+        }
+         
+        if ($request->has('years') && !empty($request->years)) {
+            $query->whereBetween('year', [min($request->years), max($request->years)]);
+        }
+        
+        
+        
+        if ($request->has('colors') && !empty($request->colors)) {
+            $query->whereIn('color', $request->colors);
+        }
 
-    // Apply filters if provided
-    if ($request->filled('make')) {
-        $query->where('make', $request->make);
-    }
-    if ($request->filled('model')) {
-        $query->where('model', $request->model);
-    }
-    if ($request->filled('color')) {
-        $query->where('color', $request->color);
-    }
+        if ($request->has('bodytypes') && !empty($request->bodytypes)) {
+            $query->whereIn('bodytype', $request->bodytypes);
+        }
 
-    $cars = $query->get(); // Execute the query and get the results
+        if ($request->has('drives') && !empty($request->drives)) {
+            $query->whereIn('drive', $request->drives);
+        }
 
-    return response()->json($cars); // Return the cars as JSON
-}
+        if ($request->has('fuels') && !empty($request->fuels)) {
+            $query->whereIn('fuel', $request->fuels);
+        }
+        
+        if ($request->has('engines') && !empty($request->engines)) {
+            $query->whereIn('engine', $request->engines);
+        }
+
+        if ($request->has('transmissions') && !empty($request->transmissions)) {
+            $query->whereIn('transmission', $request->transmissions);
+        }
+
+        $cars = $query->get(); // Execute the query and get the results
+    
+        return response()->json($cars); // Return the cars as JSON
+    }
+    
 
     
     public function getSaleBranch()
@@ -64,6 +96,15 @@ class ResultController extends Controller
         // Return the data as JSON response
         return response()->json($models);
     }
+    public function getYears()
+{
+    // Fetch distinct years in ascending order
+    $years = Car::select('year')->distinct()->orderBy('year', 'asc')->get();
+
+    // Return the years as a JSON response
+    return response()->json($years);
+}
+
     public function getColors()
     {
         // Fetch unique car makes with their total counts

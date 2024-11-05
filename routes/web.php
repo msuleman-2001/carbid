@@ -44,6 +44,7 @@ Route::post('/admin/update-profile', [AdminController::class, 'updateProfile'])-
 Route::get('/get-cars', [ResultController::class, 'getCars']);
 Route::get('/get-makes', [ResultController::class, 'getMakes'])->name('cars.getMakes');
 Route::get('/get-models', [ResultController::class, 'getModels'])->name('cars.getModels');
+Route::get('/get-years', [ResultController::class, 'getYears'])->name('cars.getYears');
 Route::get('/get-colors', [ResultController::class, 'getColors'])->name('cars.getColors');
 Route::get('/get-bodytypes', [ResultController::class, 'getBodyTypes'])->name('cars.getBodyTypes');
 Route::get('/get-salebranches', [ResultController::class, 'getSaleBranch'])->name('cars.getSaleBranch');

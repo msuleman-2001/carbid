@@ -1,32 +1,105 @@
+function applyFilter() {
+    const selectedMakes = [];
+    const selectedModels = [];
+    const selectedMinYear = document.getElementById('minYear').value;
+    const selectedMaxYear = document.getElementById('maxYear').value;
+    const selectedYears = [];
+    const selectedColors = [];
+    const selectedsaleBranch = [];
+    const selectedbodyType = [];
+    const selectedDrive = [];
+    const selectedFuel = [];
+    const selectedEngine = [];
+    const selectedTransmission = [];
+
+    // Collect selected filter values
+    $('#salebranch-list input[type="checkbox"]:checked').each(function () {
+        selectedsaleBranch.push($(this).val());
+    });
+    $('#make-list input[type="checkbox"]:checked').each(function () {
+        selectedMakes.push($(this).val());
+    });
+    $('#model-list input[type="checkbox"]:checked').each(function () {
+        selectedModels.push($(this).val());
+    });
+    $('#color-list input[type="checkbox"]:checked').each(function () {
+        selectedColors.push($(this).val());
+    });
+    $('#bodytype-list input[type="checkbox"]:checked').each(function () {
+        selectedbodyType.push($(this).val());
+    });
+    $('#drive-list input[type="checkbox"]:checked').each(function () {
+        selectedDrive.push($(this).val());
+    });
+    $('#fuel-list input[type="checkbox"]:checked').each(function () {
+        selectedFuel.push($(this).val());
+    });
+    $('#engine-list input[type="checkbox"]:checked').each(function () {
+        selectedEngine.push($(this).val());
+    });
+    $('#transmission-list input[type="checkbox"]:checked').each(function () {
+        selectedTransmission.push($(this).val());
+    });
+
+   
+
+    if (selectedMinYear && selectedMaxYear && selectedMinYear <= selectedMaxYear) {
+        for (let year = selectedMinYear; year <= selectedMaxYear; year++) {
+            selectedYears.push(year);
+        }
+    }
+
+    // AJAX request to fetch filtered car data
+    $.ajax({
+        url: '/get-cars',
+        method: 'GET',
+        data: {
+            makes: selectedMakes,
+            models: selectedModels,
+            years: selectedYears,
+            colors: selectedColors,
+            sale_branches: selectedsaleBranch,
+            bodytypes: selectedbodyType,
+            drives: selectedDrive,
+            fuels: selectedFuel,
+            engines: selectedEngine,
+            transmissions: selectedTransmission,
+        },
+        success: function (response) {
+            renderCarList(response); // Render the filtered car data
+        },
+        error: function () {
+            alert('Failed to fetch filtered car data.');
+        }
+    });
+}
+
+
+
 $(document).ready(function () {
     $('#fetch-makes').on('click', function () {
-        const icon = $(this).find('i'); // Get the icon inside the button
+        const icon = $(this).find('i');
 
         if ($('#filter6').hasClass('show')) {
-            // Close the section and switch icon to +
             $('#filter6').collapse('hide');
             icon.removeClass('fa-minus').addClass('fa-plus');
         } else {
-            // Fetch makes only if the content is not already loaded
             if ($('#make-list').is(':empty')) {
                 $.ajax({
-                    url: '/get-makes',  
+                    url: '/get-makes',
                     method: 'GET',
                     success: function (response) {
                         let html = '';
-
-                       
                         response.forEach(make => {
                             html += `
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="${make.make}" id="make-${make.make}">
+                                    <input class="form-check-input" type="checkbox" value="${make.make}" id="make-${make.make}" onclick="applyFilter()">
                                     <label class="form-check-label" for="make-${make.make}">
                                         ${make.make} (${make.total})
                                     </label>
                                 </div>
                             `;
                         });
-
                         $('#make-list').html(html);
                     },
                     error: function () {
@@ -34,94 +107,138 @@ $(document).ready(function () {
                     }
                 });
             }
-            // Open the section and switch icon to -
             $('#filter6').collapse('show');
             icon.removeClass('fa-plus').addClass('fa-minus');
         }
     });
 
-    // Reset functionality to clear all selected makes
     $('#reset-make').on('click', function (e) {
-        e.preventDefault();  // Prevent default link behavior
+        e.preventDefault();
         $('#make-list input[type="checkbox"]').prop('checked', false);
+        applyFilter(); // Update the view after resetting
     });
 
-    // Ensure the icon switches to + when the section is closed
     $('#filter6').on('hidden.bs.collapse', function () {
         $('#fetch-makes i').removeClass('fa-minus').addClass('fa-plus');
     });
 
-    // Ensure the icon switches to - when the section is opened
     $('#filter6').on('shown.bs.collapse', function () {
         $('#fetch-makes i').removeClass('fa-plus').addClass('fa-minus');
     });
 });
 
+
+
+function renderCarList(cars) {
+    const carList = $('#car-list');
+    carList.empty(); // Clear previous data
+
+    if (cars.length === 0) {
+        carList.append('<p>No cars found.</p>');
+        return;
+    }
+
+    cars.forEach(car => {
+        carList.append(`
+            <div class="container auction-card shadow p-3 mb-4 bg-white rounded">
+                <div class="row text-center align-items-start">
+                    <div class="col">
+                        <div class="auction-thumb">
+                            <img src="https://via.placeholder.com/330x247" alt="product" class="product-image img-fluid">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="lot-info">
+                            <p>Lot #: ${car.lot_number}</p>
+                            <p>Sale_Branch #: ${car.sale_branch}</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="vehicle-info">
+                            <p>${car.make}</p>
+                            <p>${car.model}</p>
+                            <p>${car.year}</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="condition-info">
+                            <p>${car.color}</p>
+                            <p>${car.bodytype}</p>
+                            <p>${car.transmission}</p>
+                            <p>${car.drive ? 'Yes' : 'No'}</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="engine-info">
+                            <p>$${car.engine} USD</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="bids-info">
+                            <button class="btn btn-primary mb-2">Bid Now</button>
+                            <button class="btn btn-success">Buy It Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `);
+    });
+}
+
+
 //model
 
 $(document).ready(function () {
-    // Fetch models and toggle collapse on button click
     $('#fetch-models').on('click', function () {
-        const icon = $(this).find('i'); // Get the icon inside the button
+        const icon = $(this).find('i');
 
-        // Check if the section is already open
         if ($('#filter7').hasClass('show')) {
-            // Close the section and switch icon to +
             $('#filter7').collapse('hide');
             icon.removeClass('fa-minus').addClass('fa-plus');
         } else {
-            // Fetch models only if the content is not already loaded
             if ($('#model-list').is(':empty')) {
                 $.ajax({
-                    url: '/get-models', // Ensure this route matches your web.php route
+                    url: '/get-models',
                     method: 'GET',
                     success: function (response) {
                         let html = '';
-
-                        // Loop through the models and build the HTML structure
                         response.forEach(model => {
                             html += `
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="${model.model}" id="model-${model.model}">
+                                    <input class="form-check-input" type="checkbox" value="${model.model}" id="model-${model.model}" onclick="applyFilter()">
                                     <label class="form-check-label" for="model-${model.model}">
                                         ${model.model} (${model.total})
                                     </label>
                                 </div>
                             `;
                         });
-
-                        // Insert the generated HTML into the model-list div
                         $('#model-list').html(html);
                     },
                     error: function () {
-                        alert('Failed to load model.');
+                        alert('Failed to load makes.');
                     }
                 });
             }
-
-            // Open the section and switch icon to -
             $('#filter7').collapse('show');
             icon.removeClass('fa-plus').addClass('fa-minus');
         }
     });
 
-    // Reset functionality to clear all selected models
     $('#reset-model').on('click', function (e) {
-        e.preventDefault(); // Prevent default link behavior
-        $('#model-list input[type="checkbox"]').prop('checked', false); // Uncheck all checkboxes
+        e.preventDefault();
+        $('#model-list input[type="checkbox"]').prop('checked', false);
+        applyFilter(); // Update the view after resetting
     });
 
-    // Ensure the icon switches to + when the section is closed
     $('#filter7').on('hidden.bs.collapse', function () {
         $('#fetch-models i').removeClass('fa-minus').addClass('fa-plus');
     });
 
-    // Ensure the icon switches to - when the section is opened
     $('#filter7').on('shown.bs.collapse', function () {
         $('#fetch-models i').removeClass('fa-plus').addClass('fa-minus');
     });
 });
- 
+
 //color
 $(document).ready(function () {
     // Fetch models and toggle collapse on button click
@@ -146,7 +263,7 @@ $(document).ready(function () {
                         response.forEach(color => {
                             html += `
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="${color.color}" id="color-${color.color}">
+                                    <input class="form-check-input" type="checkbox" value="${color.color}" id="color-${color.color}" onclick="applyFilter()">
                                     <label class="form-check-label" for="color-${color.color}">
                                         ${color.color} (${color.total})
                                     </label>
@@ -172,7 +289,8 @@ $(document).ready(function () {
     // Reset functionality to clear all selected models
     $('#reset-color').on('click', function (e) {
         e.preventDefault(); // Prevent default link behavior
-        $('#color-list input[type="checkbox"]').prop('checked', false); // Uncheck all checkboxes
+        $('#color-list input[type="checkbox"]').prop('checked', false);
+        applyFilter();  // Uncheck all checkboxes
     });
 
     // Ensure the icon switches to + when the section is closed
@@ -211,7 +329,7 @@ $(document).ready(function () {
                         response.forEach(bodytype => {
                             html += `
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="${bodytype.bodytype}" id="bodytype-${bodytype.bodytype}">
+                                    <input class="form-check-input" type="checkbox" value="${bodytype.bodytype}" id="bodytype-${bodytype.bodytype}" onclick="applyFilter()">
                                     <label class="form-check-label" for="bodytype-${bodytype.bodytype}">
                                         ${bodytype.bodytype} (${bodytype.total})
                                     </label>
@@ -237,7 +355,8 @@ $(document).ready(function () {
     // Reset functionality to clear all selected models
     $('#reset-bodytype').on('click', function (e) {
         e.preventDefault(); // Prevent default link behavior
-        $('#bodytype-list input[type="checkbox"]').prop('checked', false); // Uncheck all checkboxes
+        $('#bodytype-list input[type="checkbox"]').prop('checked', false);
+        applyFilter();  // Uncheck all checkboxes
     });
 
     // Ensure the icon switches to + when the section is closed
@@ -278,7 +397,7 @@ $(document).ready(function () {
                                     <input class="form-check-input" 
                                            type="checkbox" 
                                            value="${salebranch.sale_branch}" 
-                                           id="salebranch-${salebranch.sale_branch}">
+                                           id="salebranch-${salebranch.sale_branch}" onclick="applyFilter()">
                                     <label class="form-check-label" 
                                            for="salebranch-${salebranch.sale_branch}">
                                         ${salebranch.sale_branch} (${salebranch.total})
@@ -305,7 +424,8 @@ $(document).ready(function () {
     // Reset functionality to clear all selected salebranches
     $('#reset-salebranch').on('click', function (e) {
         e.preventDefault(); // Prevent default link behavior
-        $('#salebranch-list input[type="checkbox"]').prop('checked', false); // Uncheck all checkboxes
+        $('#salebranch-list input[type="checkbox"]').prop('checked', false); 
+        applyFilter(); // Uncheck all checkboxes
     });
 
     // Ensure the icon switches to + when the section is closed
@@ -326,11 +446,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const maxYearSelect = document.getElementById('maxYear');
     const currentYear = new Date().getFullYear();
 
-    // Populate dropdowns
+    // Populate dropdowns for year selection
     populateYearDropdown(minYearSelect, 1950, currentYear);
     populateYearDropdown(maxYearSelect, 1950, currentYear);
 
-    // Function to populate year dropdowns
+    // Event listeners to trigger applyFilter
+    minYearSelect.addEventListener('change', applyFilter);
+    maxYearSelect.addEventListener('change', applyFilter);
+
+    // Toggle + and - icon on collapse show/hide
+    const yearToggleButton = document.querySelector('[data-bs-target="#filter3"]');
+    const yearIcon = yearToggleButton.querySelector('i');
+
+    $('#filter3').on('shown.bs.collapse', function () {
+        yearIcon.classList.remove('fa-plus');
+        yearIcon.classList.add('fa-minus');
+    });
+
+    $('#filter3').on('hidden.bs.collapse', function () {
+        yearIcon.classList.remove('fa-minus');
+        yearIcon.classList.add('fa-plus');
+    });
+
+    // Function to populate the year dropdowns
     function populateYearDropdown(selectElement, startYear, endYear) {
         selectElement.innerHTML = ''; // Clear existing options
         for (let year = startYear; year <= endYear; year++) {
@@ -340,14 +478,17 @@ document.addEventListener('DOMContentLoaded', function () {
             selectElement.appendChild(option);
         }
     }
+
+    // Reset year selections
+    document.getElementById('resetYears').addEventListener('click', function () {
+        minYearSelect.value = minYearSelect.options[0].value; // Reset to the first option
+        maxYearSelect.value = maxYearSelect.options[maxYearSelect.options.length - 1].value; // Reset to the last option
+        applyFilter(); // Reapply filters to refresh displayed data
+    });
 });
 
-// Reset function to reset both dropdowns to default
-function resetYears() {
-    document.getElementById('minYear').selectedIndex = 0;
-    document.getElementById('maxYear').selectedIndex = 
-        document.getElementById('maxYear').options.length - 1;
-}
+// Function to collect selected years and other filters
+
 
 
 //Drive
@@ -377,7 +518,7 @@ $(document).ready(function () {
                                     <input class="form-check-input" 
                                            type="checkbox" 
                                            value="${drive.drive}" 
-                                           id="drive-${drive.drive}">
+                                           id="drive-${drive.drive}" onclick="applyFilter()">
                                     <label class="form-check-label" 
                                            for="drive-${drive.drive}">
                                         ${drive.drive} (${drive.total})
@@ -386,7 +527,7 @@ $(document).ready(function () {
                             `;
                         });
 
-                        // Insert the generated HTML into the salebranch-list div
+                        
                         $('#drive-list').html(html);
                     },
                     error: function () {
@@ -404,7 +545,8 @@ $(document).ready(function () {
     // Reset functionality to clear all selected salebranches
     $('#reset-drive').on('click', function (e) {
         e.preventDefault(); // Prevent default link behavior
-        $('#drive-list input[type="checkbox"]').prop('checked', false); // Uncheck all checkboxes
+        $('#drive-list input[type="checkbox"]').prop('checked', false); 
+        applyFilter();// Uncheck all checkboxes
     });
 
     // Ensure the icon switches to + when the section is closed
@@ -445,7 +587,7 @@ $(document).ready(function () {
                                     <input class="form-check-input" 
                                            type="checkbox" 
                                            value="${fuel.fuel}" 
-                                           id="fuel-${fuel.fuel}">
+                                           id="fuel-${fuel.fuel}" onclick="applyFilter()">
                                     <label class="form-check-label" 
                                            for="fuel-${fuel.fuel}">
                                         ${fuel.fuel} (${fuel.total})
@@ -454,7 +596,7 @@ $(document).ready(function () {
                             `;
                         });
 
-                        // Insert the generated HTML into the salebranch-list div
+                        
                         $('#fuel-list').html(html);
                     },
                     error: function () {
@@ -472,7 +614,8 @@ $(document).ready(function () {
     // Reset functionality to clear all selected salebranches
     $('#reset-fuel').on('click', function (e) {
         e.preventDefault(); // Prevent default link behavior
-        $('#fuel-list input[type="checkbox"]').prop('checked', false); // Uncheck all checkboxes
+        $('#fuel-list input[type="checkbox"]').prop('checked', false); 
+        applyFilter(); // Uncheck all checkboxes
     });
 
     // Ensure the icon switches to + when the section is closed
@@ -513,7 +656,7 @@ $(document).ready(function () {
                                     <input class="form-check-input" 
                                            type="checkbox" 
                                            value="${engine.engine}" 
-                                           id="engine-${engine.engine}">
+                                           id="engine-${engine.engine}" onclick="applyFilter()">
                                     <label class="form-check-label" 
                                            for="engine-${engine.engine}">
                                         ${engine.engine} (${engine.total})
@@ -522,7 +665,7 @@ $(document).ready(function () {
                             `;
                         });
 
-                        // Insert the generated HTML into the salebranch-list div
+                      
                         $('#engine-list').html(html);
                     },
                     error: function () {
@@ -540,7 +683,8 @@ $(document).ready(function () {
     // Reset functionality to clear all selected salebranches
     $('#reset-engine').on('click', function (e) {
         e.preventDefault(); // Prevent default link behavior
-        $('#engine-list input[type="checkbox"]').prop('checked', false); // Uncheck all checkboxes
+        $('#engine-list input[type="checkbox"]').prop('checked', false);
+        applyFilter(); // Uncheck all checkboxes
     });
 
     // Ensure the icon switches to + when the section is closed
@@ -581,7 +725,7 @@ $(document).ready(function () {
                                     <input class="form-check-input" 
                                            type="checkbox" 
                                            value="${transmission.transmission}" 
-                                           id="transmission-${transmission.transmission}">
+                                           id="transmission-${transmission.transmission}" onclick="applyFilter()">
                                     <label class="form-check-label" 
                                            for="transmission-${transmission.transmission}">
                                         ${transmission.transmission} (${transmission.total})
@@ -590,7 +734,7 @@ $(document).ready(function () {
                             `;
                         });
 
-                        // Insert the generated HTML into the salebranch-list div
+                        
                         $('#transmission-list').html(html);
                     },
                     error: function () {
@@ -608,7 +752,8 @@ $(document).ready(function () {
     // Reset functionality to clear all selected salebranches
     $('#reset-transmission').on('click', function (e) {
         e.preventDefault(); // Prevent default link behavior
-        $('#transmission-list input[type="checkbox"]').prop('checked', false); // Uncheck all checkboxes
+        $('#transmission-list input[type="checkbox"]').prop('checked', false); 
+        applyFilter(); // Uncheck all checkboxes
     });
 
     // Ensure the icon switches to + when the section is closed
@@ -658,7 +803,7 @@ $(document).ready(function () {
                             `;
                         });
 
-                        // Insert the generated HTML into the salebranch-list div
+                       
                         $('#auction-list').html(html);
                     },
                     error: function () {
@@ -768,7 +913,6 @@ $(document).ready(function () {
         const make = $('#filter-make').val();
         const model = $('#filter-model').val();
         const color = $('#filter-color').val();
-
         $.ajax({
             url: '/get-cars', // Laravel route to fetch filtered cars
             method: 'GET',
@@ -781,61 +925,8 @@ $(document).ready(function () {
             }
         });
     }
-
+    console.log(cars);
     // Function to render car list dynamically
-    function renderCarList(cars) {
-        const carList = $('#car-list');
-        carList.empty(); // Clear previous data
-
-        if (cars.length === 0) {
-            carList.append('<p>No cars found.</p>');
-            return;
-        }
-
-        // Loop through each car and render it in the #car-list
-        cars.forEach(car => {
-            carList.append(`
-                <div class="container auction-card shadow p-3 mb-4 bg-white rounded">
-                    <div class="row text-center align-items-start">
-                        <div class="col">
-                            <div class="auction-thumb">
-                                <img src="https://via.placeholder.com/330x247" alt="product" class="product-image img-fluid">
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="lot-info">
-                                <p>Lot #: ${car.lot_number}</p>
-                                <p>Item #: ${car.item_number}</p>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="vehicle-info">
-                                <p>${car.make}</p>
-                                <p>${car.model}</p>
-                                <p>${car.year}</p>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="condition-info">
-                                <p>${car.odometer} miles</p>
-                                <p>${car.condition}</p>
-                                <p>${car.clean_title ? 'Yes' : 'No'}</p>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="sale-info">
-                                <p>$${car.sale_price} USD</p>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="bids-info">
-                                <button class="btn btn-primary mb-2">Bid Now</button>
-                                <button class="btn btn-success">Buy It Now</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `);
-        });
-    }
+    // Define renderCarList function before calling it in the AJAX success callback
 });
+
