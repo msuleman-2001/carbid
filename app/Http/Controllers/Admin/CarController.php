@@ -15,34 +15,84 @@ class CarController extends Controller
         $vehicles = Car::paginate(10);
         return view('admindashboard.upload', compact('vehicles'));
     }
-    public function uploadCSV(Request $request)
-{
-    // Validate the uploaded file
-    $request->validate([
-        'csv_file' => 'required|file|mimes:csv,txt|max:2048',
-    ]);
+    public function uploadCsv(Request $request)
+    {
+        // Validate the uploaded file
+        $request->validate([
+            'csv_file' => 'required|file|mimes:csv,txt|max:2048',
+        ]);
 
-    try {
-        // Load the CSV
-        $file = $request->file('csv_file');
-        $csv = Reader::createFromPath($file->getRealPath(), 'r');
-        $csv->setHeaderOffset(0); // Use first row as header
+        try {
+            // Load the CSV
+            $file = $request->file('csv_file');
+            $csv = Reader::createFromPath($file->getRealPath(), 'r');
+            $csv->setHeaderOffset(0); // Use first row as header
 
-        // Iterate through the CSV records
-        foreach ($csv->getRecords() as $record) {
-            // Trim all field values
-            $data = array_map('trim', $record);
+            $dataToVerify = []; // Array to store records for verification
 
-            // Extract image URLs
-            $images = explode(',', trim($data['images'], "[]\""));  // Clean and split URLs
-            $images = array_map('trim', $images);  // Ensure each URL is properly trimmed
+            // Iterate through the CSV records
+            foreach ($csv->getRecords() as $record) {
+                // Trim all field values
+                $data = array_map('trim', $record);
 
-            // Generate slug from make, model, and year
-            $slug = Str::slug(
-                "{$data['make']}-{$data['model']}-{$data['year']}"
-            );
+                // Extract image URLs
+                $images = explode(',', trim($data['images'], "[]\""));  // Clean and split URLs
+                $images = array_map('trim', $images);  // Ensure each URL is properly trimmed
 
-            // Insert data into the database
+                // Prepare data for verification
+                $dataToVerify[] = [
+                    'data' => $data,
+                    'images' => $images
+                ];
+            }
+
+            // Store dataToVerify in session
+            session(['dataToVerify' => $dataToVerify]);
+
+            // Pass data for verification to the view
+            return view('admin.image_verification', compact('dataToVerify'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'An error occurred: ' . $e->getMessage()]);
+        }
+    }
+
+    // Method to store verified images
+    public function storeVerifiedImages(Request $request)
+    {
+        // Validate the form input for the verified images
+        $validatedData = $request->validate([
+            'verified_images' => 'required|array',
+            'verified_images.*' => 'array',
+        ]);
+    
+        $dataToVerify = session('dataToVerify');
+    
+        foreach ($validatedData['verified_images'] as $index => $verifiedImages) {
+            $data = $dataToVerify[$index]['data'];
+    
+            $localImagePaths = [];  // Array to store local paths of downloaded images
+    
+            foreach ($verifiedImages as $imageUrl) {
+                // Generate a unique file name for each image
+                $imageName = 'car_' . uniqid() . '.jpg';
+                $imagePath = storage_path('app/public/car_images/' . $imageName);
+    
+                try {
+                    // Download the image and save it to local storage
+                    $imageContents = file_get_contents($imageUrl);
+                    file_put_contents($imagePath, $imageContents);
+    
+                    // Save the local storage path for the image (accessible via public/storage)
+                    $localImagePaths[] = 'storage/car_images/' . $imageName;
+    
+                } catch (\Exception $e) {
+                    // If there's an error downloading the image, log the error and skip to the next image
+                    \Log::error("Error downloading image: " . $e->getMessage());
+                    continue;
+                }
+            }
+    
+            // Store car data in the database with local image paths
             Car::create([
                 'url' => $data['url'] ?? null,
                 'vin' => $data['vin'] ?? null,
@@ -59,15 +109,16 @@ class CarController extends Controller
                 'fuel' => $data['fuel'] ?? null,
                 'engine' => $data['engine'] ?? null,
                 'transmission' => $data['transmission'] ?? null,
-                // Store image URLs as JSON without unnecessary escaping
-                'images' => json_encode($images, JSON_UNESCAPED_SLASHES),
-                'slug' => $slug,
+                'images' => json_encode($localImagePaths, JSON_UNESCAPED_SLASHES),
+                'is_verified' => true,
+                'slug' => Str::slug("{$data['make']}-{$data['model']}-{$data['year']}"),
             ]);
         }
-
-        return redirect()->back()->with('success', 'CSV uploaded and data stored successfully.');
-    } catch (\Exception $e) {
-        return redirect()->back()->withErrors(['error' => 'An error occurred: ' . $e->getMessage()]);
+    
+        session()->forget('dataToVerify');
+    
+        return redirect()->back()->with('success', 'Images verified, downloaded, and data stored successfully.');
     }
-}
+    
+    
 }

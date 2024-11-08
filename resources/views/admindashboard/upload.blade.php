@@ -177,6 +177,33 @@
             </form>
         </div>
 
+        @if (session('dataToVerify'))
+            <div class="image-verification-section">
+                <h2>Image Verification</h2>
+                <form action="{{ route('admin.store.verified.images') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="dataToVerify" value="{{ json_encode(session('dataToVerify')) }}">
+                    @foreach (session('dataToVerify') as $index => $data)
+                        <div class="verification-item">
+                            <h4>Data for {{ $data['data']['make'] }} {{ $data['data']['model'] }} ({{ $data['data']['year'] }})
+                            </h4>
+                            <p>Images:</p>
+                            @foreach ($data['images'] as $imageUrl)
+                                <div>
+                                    <label>
+                                        <input type="checkbox" name="verified_images[{{ $index }}][]" value="{{ $imageUrl }}">
+                                        <img src="{{ $imageUrl }}" alt="Image" style="width: 100px; height: auto;">
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endforeach
+                    <input type="submit" value="Verify Images">
+                </form>
+            </div>
+        @endif
+
+
         <!-- Vehicle Data Table -->
         <h2>Vehicle Data</h2>
         <table>
@@ -227,7 +254,7 @@
                         <td>{{ $vehicle->engine}}</td>
                         <td>{{ $vehicle->transmission}}</td>
                         <td>{{$vehicle->images}}</td>
-                       
+
                     </tr>
                 @endforeach
             </tbody>
