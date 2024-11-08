@@ -13,6 +13,29 @@ class ResultController extends Controller
         return view('frontend.product-2');
     }
 
+    public function searchCars(Request $request)
+    {
+        $query = $request->input('query'); // Get the search input
+
+        // Search the database for matching records
+        $cars = Car::where('make', 'LIKE', "%{$query}%")
+                    ->orWhere('model', 'LIKE', "%{$query}%")
+                    ->orWhere('year', 'LIKE', "%{$query}%")
+                    ->orWhere('color', 'LIKE', "%{$query}%")
+                    ->orWhere('lot_number', 'LIKE', "%{$query}%")
+                    ->orWhere('auction', 'LIKE', "%{$query}%")
+                    ->orWhere('country', 'LIKE', "%{$query}%")
+                    ->orWhere('sale_branch', 'LIKE', "%{$query}%")
+                    ->orWhere('bodytype', 'LIKE', "%{$query}%")
+                    ->orWhere('drive', 'LIKE', "%{$query}%")
+                    ->orWhere('fuel', 'LIKE', "%{$query}%")
+                    ->orWhere('engine', 'LIKE', "%{$query}%")
+                    ->orWhere('transmission', 'LIKE', "%{$query}%")
+                    ->get();
+
+        // Return the search results
+        return response()->json($cars);
+    }
     public function getCars(Request $request)
     {
         $query = Car::query(); // Start building the query

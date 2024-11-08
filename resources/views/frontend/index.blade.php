@@ -130,19 +130,19 @@
                         </li>
 
                     </ul>
-                    <a href="../search" >   <form class="search-form">
-                        <input type="text" placeholder="Search for brand, model....">
+                    <form class="search-form">
+                        <input type="text" placeholder="Search for brand, model...." name="query">
                         <button type="submit"><i class="fas fa-search"></i></button>
-                    </form></a>
-                 
-                    <div class="search-bar d-md-none">
-                        <a href="../search"><i class="fas fa-search"></i></a>
-                    </div>
-                    <div class="header-bar d-lg-none">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+                    </form>
+
+                        <div class="search-bar d-md-none">
+                            <a href="#"><i class="fas fa-search"></i></a>
+                        </div>
+                        <div class="header-bar d-lg-none">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                 </div>
             </div>
         </div>

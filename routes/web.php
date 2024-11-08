@@ -59,5 +59,8 @@ Route::get('/get-auctions', [ResultController::class, 'getAuctions'])->name('car
 Route::get('admin/upload' , [CarController::class, 'showUploadForm']);
 Route::post('/upload', [CarController::class, 'uploadCsv'])->name('cars.upload');
 
+
+Route::get('/search-cars', [ResultController::class, 'searchCars']);
+
 // Route for storing verified images
 Route::post('/store-verified-images', [CarController::class, 'storeVerifiedImages'])->name('admin.store.verified.images');

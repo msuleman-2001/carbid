@@ -889,6 +889,7 @@ $(document).ready(function () {
         fetchCarData(); // Fetch data on every filter change
     });
 
+    
     // Function to fetch filter options and populate dropdowns
     function fetchFilterOptions(url, selector) {
         $.ajax({
@@ -907,6 +908,25 @@ $(document).ready(function () {
             }
         });
     }
+
+    $('.search-form').on('submit', function (e) {
+        e.preventDefault(); // Prevent default form submission
+        const query = $(this).find('input').val();
+        if (query) {
+            $.ajax({
+                url: '/search-cars', // Laravel route to fetch search results
+                method: 'GET',
+                data: { query }, // Send search query to backend
+                success: function (response) {
+                    renderCarList(response); // Render the search results
+                },
+                error: function () {
+                    alert('Failed to fetch search results.');
+                }
+            });
+        }
+    });
+
 
     // Function to fetch car data based on selected filters
     function fetchCarData() {

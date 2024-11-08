@@ -181,7 +181,7 @@
             <div class="container">
                 <div class="header-wrapper">
                     <div class="logo">
-                        <a href="./index.html">
+                        <a href="./">
                             <img src="/frontend/assets/images/logo/logo.png" alt="logo">
                         </a>
                     </div>
@@ -265,7 +265,7 @@
                         </li>
                     </ul>
                     <form class="search-form">
-                        <input type="text" placeholder="Search for brand, model....">
+                        <input type="text" placeholder="Search for brand, model...." name="query">
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </form>
                     <div class="search-bar d-md-none">
