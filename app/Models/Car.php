@@ -12,10 +12,27 @@ class Car extends Model
 
     // Define which fields are mass assignable
     protected $fillable = [
-        'slug', 'url', 'vin', 'lot_number', 'auction', 
-        'country', 'sale_branch', 'seller', 'auction_date', 'vehicle_type',  'year', 'make', 'model', 
-        'color', 'bodytype', 'drive', 'fuel', 'engine', 
-        'transmission', 'images' 
+        'slug', 
+        'url', 
+        'vin', 
+        'lot_number', 
+        'auction', 
+        'country', 
+        'sale_branch', 
+        'seller', 
+        'auction_date', 
+        'vehicle_type',  
+        'year', 
+        'make', 
+        'model', 
+        'color', 
+        'bodytype', 
+        'drive', 
+        'fuel', 
+        'engine', 
+        'transmission', 
+        'images', 
+        'is_verified'
     ];
 
     // Automatically cast the images field to an array
