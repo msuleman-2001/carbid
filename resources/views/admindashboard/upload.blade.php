@@ -219,6 +219,7 @@
                     <th>Sale Branch</th>
                     <th>Seller</th>
                     <th>Auction Date</th>
+                    <th>Vehicle Type</th>
                     <th>Year</th>
                     <th>Make</th>
                     <th>Model</th>
@@ -228,7 +229,7 @@
                     <th>Fuel</th>
                     <th>Engine</th>
                     <th>Transmission</th>
-                    <th>Images</th>
+                    <!-- <th>Images</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -244,6 +245,7 @@
                         <td>{{ $vehicle->sale_branch}}</td>
                         <td>{{ $vehicle->seller}}</td>
                         <td>{{ $vehicle->auction_date}}</td>
+                        <td>{{$vehicle->vehicle_type}}</td>
                         <td>{{ $vehicle->year}}</td>
                         <td>{{ $vehicle->make}}</td>
                         <td>{{ $vehicle->model}}</td>
@@ -253,7 +255,7 @@
                         <td>{{ $vehicle->fuel}}</td>
                         <td>{{ $vehicle->engine}}</td>
                         <td>{{ $vehicle->transmission}}</td>
-                        <td>{{$vehicle->images}}</td>
+                        <!-- <td>{{$vehicle->images}}</td> -->
 
                     </tr>
                 @endforeach

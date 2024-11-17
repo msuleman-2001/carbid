@@ -355,7 +355,6 @@
     <!--============= Hero Section Starts Here =============-->
     <div class="hero-section style-2">
         <div class="container">
-
         </div>
         <div class="bg_img hero-bg bottom_center" data-background="/frontend/assets/images/banner/hero-bg.png"></div>
     </div>

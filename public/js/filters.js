@@ -139,51 +139,72 @@ function renderCarList(cars) {
     }
 
     cars.forEach(car => {
+        // Decode the images JSON and fetch the first image
+        let images = [];
+        try {
+            images = JSON.parse(car.images); // Parse the JSON string
+        } catch (e) {
+            console.error("Error parsing images JSON for car:", car, e);
+        }
+
+        const firstImage = images && images.length > 0
+            ? images[0].replace(/['"]+/g, '') // Remove any quotes from the image path
+            : '/frontend/assets/images/auction/car/default-image.jpg'; // Fallback image
+
+        // Construct the detail page URL using the slug
+        const detailPageUrl = `/vehicle-detail/${car.slug}`;
+
         carList.append(`
-            <div class="container auction-card shadow p-3 mb-4 bg-white rounded">
-                <div class="row text-center align-items-start">
-                    <div class="col">
-                        <div class="auction-thumb">
-                            <img src="https://via.placeholder.com/330x247" alt="product" class="product-image img-fluid">
+            <a href="${detailPageUrl}" class="text-decoration-none text-dark">
+                <div class="container auction-card shadow p-3 mb-4 bg-white rounded">
+                    <div class="row text-center align-items-start">
+                        <div class="col">
+                            <div class="auction-thumb">
+                                <img src="${firstImage}" alt="${car.make} ${car.model}" class="product-image img-fluid">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="lot-info">
-                            <p>Lot #: ${car.lot_number}</p>
-                            <p>Sale_Branch #: ${car.sale_branch}</p>
+                        <div class="col">
+                            <div class="lot-info">
+                                <p>Lot #: ${car.lot_number}</p>
+                                <p>Sale_Branch #: ${car.sale_branch}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="vehicle-info">
-                            <p>${car.make}</p>
-                            <p>${car.model}</p>
-                            <p>${car.year}</p>
+                        <div class="col">
+                            <div class="vehicle-info">
+                                <p>${car.make}</p>
+                                <p>${car.model}</p>
+                                <p>${car.year}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="condition-info">
-                            <p>${car.color}</p>
-                            <p>${car.bodytype}</p>
-                            <p>${car.transmission}</p>
-                            <p>${car.drive ? 'Yes' : 'No'}</p>
+                        <div class="col">
+                            <div class="condition-info">
+                                <p>${car.color}</p>
+                                <p>${car.bodytype}</p>
+                                <p>${car.transmission}</p>
+                                <p>${car.drive ? 'Yes' : 'No'}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="engine-info">
-                            <p>$${car.engine} USD</p>
+                        <div class="col">
+                            <div class="engine-info">
+                                <p>$${car.engine} USD</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="bids-info">
-                            <button class="btn btn-primary mb-2">Bid Now</button>
-                            <button class="btn btn-success">Buy It Now</button>
+                        <div class="col">
+                            <div class="bids-info">
+                                <button class="btn btn-primary mb-2">Bid Now</button>
+                                <button class="btn btn-success">Buy It Now</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         `);
     });
 }
+
+
+
+
 
 
 //model

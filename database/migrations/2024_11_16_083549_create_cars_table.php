@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('auction')->nullable();
             $table->string('country')->nullable();
             $table->string('sale_branch')->nullable();
+            $table->string('seller')->nullable();
+            $table->string('auction_date')->nullable();
+            $table->string('vehicle_type')->nullable();
             $table->integer('year')->nullable();
             $table->string('make')->nullable();
             $table->string('model')->nullable();

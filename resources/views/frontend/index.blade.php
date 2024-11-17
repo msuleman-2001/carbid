@@ -135,14 +135,14 @@
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </form>
 
-                        <div class="search-bar d-md-none">
-                            <a href="#"><i class="fas fa-search"></i></a>
-                        </div>
-                        <div class="header-bar d-lg-none">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
+                    <div class="search-bar d-md-none">
+                        <a href="#"><i class="fas fa-search"></i></a>
+                    </div>
+                    <div class="header-bar d-lg-none">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -254,91 +254,62 @@
         <br>
         <!--============= Car Auction Section Starts Here =============-->
         @php
-            $chunks = $vehicles->chunk(3); // Divide vehicles into chunks of 3
-            $totalContainers = $chunks->count();
-        @endphp
+    // Chunk the vehicles into groups of 3
+    $chunks = $vehicles->chunk(3); 
+    $totalContainers = $chunks->count();
+@endphp
 
-        <div class="slider-container">
-            <div class="all-containers">
-                @foreach($chunks as $index => $vehicleChunk)
-                            <section class="vehicle-container" id="container-{{ $index }}"
-                                style="display: {{ $index == 0 ? 'block' : 'none' }};">
-                                <div class="container">
-                                    <div class="row justify-content-center mb-30-none">
-                                        @foreach($vehicleChunk as $vehicle)
-                                                                @php
-                                                                    // Decode the images JSON to extract the first image
-                                                                    $images = json_decode($vehicle->images, true);
+<div class="slider-container">
+    <div class="all-containers">
+        @foreach($chunks as $index => $vehicleChunk) <!-- Ensure this matches -->
+            <section class="vehicle-container" id="container-{{ $index }}"
+                     style="display: {{ $index == 0 ? 'block' : 'none' }};">
+                <div class="container">
+                    <div class="row justify-content-center mb-30-none">
+                        @foreach($vehicleChunk as $vehicle) <!-- Use $vehicle inside this loop -->
+                            @php
+                                // Decode the images JSON to extract the first image
+                                $images = json_decode($vehicle->images, true);
 
-                                                                    // Get the first image, ensure to trim both leading and trailing quotes
-                                                                    $firstImage = isset($images[0]) ? trim($images[0], "'") : '/frontend/assets/images/auction/car/default-image.jpg';
-                                                                @endphp
+                                // Get the first image, fallback to default
+                                $firstImage = isset($images[0]) ? trim($images[0], "'\"") : '/frontend/assets/images/auction/car/default-image.jpg';
+                            @endphp
 
-                                                                <div class="col-sm-10 col-md-6 col-lg-4">
-                                                                    <div class="auction-item-2">
-                                                                        <div class="auction-thumb">
-                                                                            <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}">
-                                                                                <img src="{{ $firstImage }}"
-                                                                                    alt="{{ $vehicle->make }} {{ $vehicle->model }}" class="img-fluid">
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="auction-content p-3">
-                                                                            <h6 class="title mb-2">
-                                                                                <a
-                                                                                    href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}">
-                                                                                    {{ $vehicle->make }} {{ $vehicle->model }}
-                                                                                </a>
-                                                                            </h6>
-
-                                                                            <div class="bid-amount text-muted mb-2">
-                                                                                <p><strong>Year:</strong> {{ $vehicle->year }}</p>
-                                                                                <p><strong>Engine:</strong> {{ $vehicle->engine }}</p>
-                                                                                <p><strong>Lot#:</strong> {{ $vehicle->lot_number }}</p>
-                                                                            </div>
-
-                                                                            <div class="text-center">
-                                                                                <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}"
-                                                                                    class="custom-button btn btn-primary w-100">View Details</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                        @endforeach
+                            <div class="col-sm-10 col-md-6 col-lg-4">
+                                <div class="auction-item-2">
+                                    <div class="auction-thumb">
+                                        <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}">
+                                            <img src="{{ $firstImage }}" 
+                                                 alt="{{ $vehicle->make }} {{ $vehicle->model }}" 
+                                                 class="img-fluid">
+                                        </a>
+                                    </div>
+                                    <div class="auction-content p-3">
+                                        <h6 class="title mb-2">
+                                            <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}">
+                                                {{ $vehicle->make }} {{ $vehicle->model }}
+                                            </a>
+                                        </h6>
+                                        <div class="bid-amount text-muted mb-2">
+                                            <p><strong>Year:</strong> {{ $vehicle->year }}</p>
+                                            <p><strong>Engine:</strong> {{ $vehicle->engine }}</p>
+                                            <p><strong>Lot#:</strong> {{ $vehicle->lot_number }}</p>
+                                        </div>
+                                        <div class="text-center">
+                                            <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}" 
+                                               class="custom-button btn btn-primary w-100">View Details</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </section>
-                @endforeach
-            </div>
-            <script>
-                let currentContainer = 0;
-                const totalContainers = {{ $totalContainers }};
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+        @endforeach
+    </div>
+</div>
 
-                document.getElementById('next').addEventListener('click', function () {
-                    if (currentContainer < totalContainers - 1) {
-                        document.getElementById('container-' + currentContainer).style.display = 'none';
-                        currentContainer++;
-                        document.getElementById('container-' + currentContainer).style.display = 'block';
-                        checkButtons();
-                    }
-                });
-
-                document.getElementById('prev').addEventListener('click', function () {
-                    if (currentContainer > 0) {
-                        document.getElementById('container-' + currentContainer).style.display = 'none';
-                        currentContainer--;
-                        document.getElementById('container-' + currentContainer).style.display = 'block';
-                        checkButtons();
-                    }
-                });
-
-                function checkButtons() {
-                    document.getElementById('prev').style.display = currentContainer === 0 ? 'none' : 'block';
-                    document.getElementById('next').style.display = currentContainer === totalContainers - 1 ? 'none' : 'block';
-                }
-
-                checkButtons(); // Initial check to hide/show arrows on page load
-            </script>
-        </div>
 
         <!--============= Watches Auction Section Starts Here =============-->
         <section class="watches-auction-section padding-bottom padding-top">
