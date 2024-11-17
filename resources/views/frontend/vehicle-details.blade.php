@@ -21,7 +21,41 @@
 
     <link rel="shortcut icon" href="/frontend/assets/images/favicon.png" type="image/x-icon">
 </head>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the main image element
+        const mainImage = document.getElementById("mainImage");
+
+        // Add event listeners to all clickable thumbnails
+        document.querySelectorAll(".clickable-thumbnail").forEach(thumbnail => {
+            thumbnail.addEventListener("click", function () {
+                // Update the main image's src attribute with the clicked thumbnail's src
+                mainImage.src = this.src;
+
+                // Optional: Remove the active class from all thumbnails
+                document.querySelectorAll(".clickable-thumbnail").forEach(img => img.classList.remove("active"));
+
+                // Add active class to the clicked thumbnail
+                this.classList.add("active");
+            });
+        });
+    });
+
+
+</script>
 <style>
+    .clickable-thumbnail {
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.3s;
+    }
+
+    .clickable-thumbnail.active,
+    .clickable-thumbnail:hover {
+        opacity: 1;
+        border: 2px solid #007bff;
+    }
+
     body {
         font-family: Arial, sans-serif;
         margin: 20px;
@@ -306,122 +340,122 @@
 
     <!--============= Product Details Section Starts Here =============-->
     @foreach($vehicles as $vehicle)
-    @php
-        // Decode the images JSON
-        $images = json_decode($vehicle->images, true);
+        @php
+            // Decode the images JSON
+            $images = json_decode($vehicle->images, true);
 
-        // Ensure $images is an array
-        $firstImage = isset($images[0]) ? trim($images[0], "'\"") : '/frontend/assets/images/product/default-image.png';
-        $otherImages = array_slice($images, 1); // Get all images except the first
-    @endphp
+            // Ensure $images is an array
+            $firstImage = isset($images[0]) ? trim($images[0], "'\"") : '/frontend/assets/images/product/default-image.png';
+            $otherImages = array_slice($images, 1); // Get all images except the first
+        @endphp
 
-    <section class="product-details padding-bottom mt--240 mt-lg--440">
-        <div class="container">
-            <div class="product-details-slider-top-wrapper">
-                <div class="product-details-slider owl-theme owl-carousel" id="sync1">
-                    <!-- Display the first image -->
-                    <div class="slide-top-item">
-                        <div class="slide-inner">
-                            <img src="{{ $firstImage }}" alt="First Image" >
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="product-details-slider-wrapper">
-                <div class="product-bottom-slider owl-theme owl-carousel" id="sync2">
-                    <!-- Display other images -->
-                    @foreach($otherImages as $image)
-                        <div class="slide-bottom-item">
+        <section class="product-details padding-bottom mt--240 mt-lg--440">
+            <div class="container">
+                <div class="product-details-slider-top-wrapper">
+                    <div class="product-details-slider owl-theme owl-carousel" id="sync1">
+                        <!-- Display the first image -->
+                        <div class="slide-top-item">
                             <div class="slide-inner">
-                                <img src="{{ trim($image, "'\"") }}" alt="Other Image">
+                                <img id="mainImage" src="{{ $firstImage }}" alt="First Image" class="img-fluid">
                             </div>
                         </div>
-                    @endforeach
-                </div>
-                <span class="det-prev det-nav">
-                    <i class="fas fa-angle-left"></i>
-                </span>
-                <span class="det-next det-nav active">
-                    <i class="fas fa-angle-right"></i>
-                </span>
-            </div>
-
-            <!-- Vehicle Details -->
-            <div class="row mt-40-60-80">
-                <div class="col-lg-8">
-                    <div class="product-details-content">
-                        <div class="product-details-header">
-                            <h2 class="title">The {{$vehicle->make}} {{$vehicle->model}}</h2>
-                            <ul>
-                                <li>Listing ID: {{$vehicle->lot_number}}</li>
-                                <li>Item #: {{$vehicle->item_number}}</li>
-                            </ul>
-                        </div>
-                        <ul class="price-table mb-30">
-                            <li class="header">
-                                <h5 class="current">Current Price</h5>
-                                <h3 class="price">{{$vehicle->vehicle_retail_value}}</h3>
-                            </li>
-                        </ul>
-                        <table class="detail-table">
-                            <tr>
-                                <th>Field</th>
-                                <th>Value</th>
-                            </tr>
-                            <tr>
-                                <td>VIN</td>
-                                <td>{{$vehicle->vin}}</td>
-                            </tr>
-                            <tr>
-                                <td>Country</td>
-                                <td>{{$vehicle->country}}</td>
-                            </tr>
-                            <tr>
-                                <td>Make</td>
-                                <td>{{$vehicle->make}}</td>
-                            </tr>
-                            <tr>
-                                <td>Model</td>
-                                <td>{{$vehicle->model}}</td>
-                            </tr>
-                            <tr>
-                                <td>Body Type</td>
-                                <td>{{$vehicle->bodytype}}</td>
-                            </tr>
-                            <tr>
-                                <td>Drive</td>
-                                <td>{{$vehicle->drive}}</td>
-                            </tr>
-                            <tr>
-                                <td>Fuel</td>
-                                <td>{{$vehicle->fuel}}</td>
-                            </tr>
-                            <tr>
-                                <td>Engine</td>
-                                <td>{{$vehicle->engine}}</td>
-                            </tr>
-                            <tr>
-                                <td>Transmission</td>
-                                <td>{{$vehicle->transmission}}</td>
-                            </tr>
-                            <tr>
-                                <td>Auction</td>
-                                <td>{{$vehicle->auction}}</td>
-                            </tr>
-                            <tr>
-                                <td>Sale Branch</td>
-                                <td>{{$vehicle->sale_branch}}</td>
-                            </tr>
-                        </table>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <!-- Add content for the right section if needed -->
+                <div class="product-details-slider-wrapper">
+                    <div class="product-bottom-slider owl-theme owl-carousel" id="sync2">
+                        @foreach($otherImages as $image)
+                            <div class="slide-bottom-item">
+                                <div class="slide-inner">
+                                    <img src="{{ trim($image, "'\"") }}" alt="Thumbnail Image"
+                                        class="img-fluid clickable-thumbnail">
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <span class="det-prev det-nav">
+                        <i class="fas fa-angle-left"></i>
+                    </span>
+                    <span class="det-next det-nav active">
+                        <i class="fas fa-angle-right"></i>
+                    </span>
+                </div>
+
+                <!-- Vehicle Details -->
+                <div class="row mt-40-60-80">
+                    <div class="col-lg-8">
+                        <div class="product-details-content">
+                            <div class="product-details-header">
+                                <h2 class="title">The {{$vehicle->make}} {{$vehicle->model}}</h2>
+                                <ul>
+                                    <li>Listing ID: {{$vehicle->lot_number}}</li>
+                                    <li>Item #: {{$vehicle->item_number}}</li>
+                                </ul>
+                            </div>
+                            <ul class="price-table mb-30">
+                                <li class="header">
+                                    <h5 class="current">Current Price</h5>
+                                    <h3 class="price">{{$vehicle->vehicle_retail_value}}</h3>
+                                </li>
+                            </ul>
+                            <table class="detail-table">
+                                <tr>
+                                    <th>Field</th>
+                                    <th>Value</th>
+                                </tr>
+                                <tr>
+                                    <td>VIN</td>
+                                    <td>{{$vehicle->vin}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Country</td>
+                                    <td>{{$vehicle->country}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Make</td>
+                                    <td>{{$vehicle->make}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Model</td>
+                                    <td>{{$vehicle->model}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Body Type</td>
+                                    <td>{{$vehicle->bodytype}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Drive</td>
+                                    <td>{{$vehicle->drive}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Fuel</td>
+                                    <td>{{$vehicle->fuel}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Engine</td>
+                                    <td>{{$vehicle->engine}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Transmission</td>
+                                    <td>{{$vehicle->transmission}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Auction</td>
+                                    <td>{{$vehicle->auction}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Sale Branch</td>
+                                    <td>{{$vehicle->sale_branch}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <!-- Add content for the right section if needed -->
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-@endforeach
+        </section>
+    @endforeach
 
     <!--============= Product Details Section Ends Here =============-->
 
