@@ -33,7 +33,6 @@ return new class extends Migration
             $table->string('engine')->nullable();
             $table->string('transmission')->nullable();
             $table->json('images')->nullable(); // Storing images as JSON
-            $table->boolean('is_verified')->nullable();
         });
     }
 
