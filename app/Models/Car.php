@@ -15,7 +15,7 @@ class Car extends Model
         'slug', 'url', 'vin', 'lot_number', 'auction', 
         'country', 'sale_branch', 'seller', 'auction_date', 'vehicle_type',  'year', 'make', 'model', 
         'color', 'bodytype', 'drive', 'fuel', 'engine', 
-        'transmission', 'images' , 'is_verified'
+        'transmission', 'images' 
     ];
 
     // Automatically cast the images field to an array
