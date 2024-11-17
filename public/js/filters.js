@@ -128,7 +128,6 @@ $(document).ready(function () {
 });
 
 
-
 function renderCarList(cars) {
     const carList = $('#car-list');
     carList.empty(); // Clear previous data
@@ -156,27 +155,33 @@ function renderCarList(cars) {
 
         carList.append(`
             <a href="${detailPageUrl}" class="text-decoration-none text-dark">
-                <div class="container auction-card shadow p-3 mb-4 bg-white rounded">
-                    <div class="row text-center align-items-start">
-                        <div class="col">
+                <div class="container auction-card shadow-sm p-2 mb-3 bg-white rounded" style="max-height: 200px;">
+                    <div class="row text-center align-items-center">
+                        <!-- Image Section -->
+                        <div class="col-3">
                             <div class="auction-thumb">
-                                <img src="${firstImage}" alt="${car.make} ${car.model}" class="product-image img-fluid">
+                                <img src="${firstImage}" alt="${car.make} ${car.model}" 
+                                     class="product-image img-fluid rounded" 
+                                     style="max-height: 150px;">
                             </div>
                         </div>
-                        <div class="col">
+                        <!-- Lot Info Section -->
+                        <div class="col-3">
                             <div class="lot-info">
                                 <p>Lot #: ${car.lot_number}</p>
                                 <p>Sale_Branch #: ${car.sale_branch}</p>
                             </div>
                         </div>
-                        <div class="col">
+                        <!-- Vehicle Info Section -->
+                        <div class="col-2">
                             <div class="vehicle-info">
                                 <p>${car.make}</p>
                                 <p>${car.model}</p>
                                 <p>${car.year}</p>
                             </div>
                         </div>
-                        <div class="col">
+                        <!-- Condition Info Section -->
+                        <div class="col-2">
                             <div class="condition-info">
                                 <p>${car.color}</p>
                                 <p>${car.bodytype}</p>
@@ -184,15 +189,17 @@ function renderCarList(cars) {
                                 <p>${car.drive ? 'Yes' : 'No'}</p>
                             </div>
                         </div>
-                        <div class="col">
+                        <!-- Engine Info Section -->
+                        <div class="col-1">
                             <div class="engine-info">
                                 <p>$${car.engine} USD</p>
                             </div>
                         </div>
-                        <div class="col">
+                        <!-- Bids Section -->
+                        <div class="col-1 text-center">
                             <div class="bids-info">
-                                <button class="btn btn-primary mb-2">Bid Now</button>
-                                <button class="btn btn-success">Buy It Now</button>
+                                <button class="btn btn-primary btn-sm mb-2">Bid Now</button>
+                                <button class="btn btn-success btn-sm">Buy It Now</button>
                             </div>
                         </div>
                     </div>
@@ -201,7 +208,6 @@ function renderCarList(cars) {
         `);
     });
 }
-
 
 
 
