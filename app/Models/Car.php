@@ -31,8 +31,7 @@ class Car extends Model
         'fuel', 
         'engine', 
         'transmission', 
-        'images', 
-        'is_verified'
+        'images'
     ];
 
     // Automatically cast the images field to an array
