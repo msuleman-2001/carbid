@@ -264,10 +264,11 @@
                             <a href="./contact.html">Contact</a>
                         </li>
                     </ul>
-                    <form class="search-form">
+                    <form class="search-form" action="/search-cars" method="GET">
                         <input type="text" placeholder="Search for brand, model...." name="query">
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </form>
+
                     <div class="search-bar d-md-none">
                         <a href="#0"><i class="fas fa-search"></i></a>
                     </div>

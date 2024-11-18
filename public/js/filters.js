@@ -938,12 +938,17 @@ $(document).ready(function () {
 
     $('.search-form').on('submit', function (e) {
         e.preventDefault(); // Prevent default form submission
-        const query = $(this).find('input').val();
+        const query = $(this).find('input[name="query"]').val().trim(); // Get the search query
         if (query) {
+            const url = `/search-cars?query=${encodeURIComponent(query)}`; // Build the correct URL
+        
+            // Update the browser's URL
+            window.history.pushState(null, null, url);
+        
+            // Perform the AJAX request
             $.ajax({
-                url: '/search-cars', // Laravel route to fetch search results
+                url: url, // Use the dynamically generated URL
                 method: 'GET',
-                data: { query }, // Send search query to backend
                 success: function (response) {
                     renderCarList(response); // Render the search results
                 },
@@ -953,6 +958,9 @@ $(document).ready(function () {
             });
         }
     });
+    
+    
+    
 
 
     // Function to fetch car data based on selected filters

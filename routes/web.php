@@ -21,6 +21,7 @@ Route::get('vehicle-detail/{slug}',[HomeController::class, 'vehicle'])->name('fr
 
 //result page
 Route::get('/search',[ResultController::class , 'result']);
+
 //Admin
 Route::view('/admin/signup', 'admindashboard.sign-up')->name('admin.signup');
 Route::view('/admin/login', 'admindashboard.login-in')->name('admin.login');

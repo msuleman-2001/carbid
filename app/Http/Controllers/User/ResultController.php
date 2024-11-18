@@ -16,26 +16,33 @@ class ResultController extends Controller
     public function searchCars(Request $request)
     {
         $query = $request->input('query'); // Get the search input
-
+    
         // Search the database for matching records
         $cars = Car::where('make', 'LIKE', "%{$query}%")
-                    ->orWhere('model', 'LIKE', "%{$query}%")
-                    ->orWhere('year', 'LIKE', "%{$query}%")
-                    ->orWhere('color', 'LIKE', "%{$query}%")
-                    ->orWhere('lot_number', 'LIKE', "%{$query}%")
-                    ->orWhere('auction', 'LIKE', "%{$query}%")
-                    ->orWhere('country', 'LIKE', "%{$query}%")
-                    ->orWhere('sale_branch', 'LIKE', "%{$query}%")
-                    ->orWhere('bodytype', 'LIKE', "%{$query}%")
-                    ->orWhere('drive', 'LIKE', "%{$query}%")
-                    ->orWhere('fuel', 'LIKE', "%{$query}%")
-                    ->orWhere('engine', 'LIKE', "%{$query}%")
-                    ->orWhere('transmission', 'LIKE', "%{$query}%")
-                    ->get();
-
-        // Return the search results
-        return response()->json($cars);
+                   ->orWhere('model', 'LIKE', "%{$query}%")
+                   ->orWhere('year', 'LIKE', "%{$query}%")
+                   ->orWhere('color', 'LIKE', "%{$query}%")
+                   ->orWhere('lot_number', 'LIKE', "%{$query}%")
+                   ->orWhere('auction', 'LIKE', "%{$query}%")
+                   ->orWhere('country', 'LIKE', "%{$query}%")
+                   ->orWhere('sale_branch', 'LIKE', "%{$query}%")
+                   ->orWhere('bodytype', 'LIKE', "%{$query}%")
+                   ->orWhere('drive', 'LIKE', "%{$query}%")
+                   ->orWhere('fuel', 'LIKE', "%{$query}%")
+                   ->orWhere('engine', 'LIKE', "%{$query}%")
+                   ->orWhere('transmission', 'LIKE', "%{$query}%")
+                   ->get();
+    
+        // If the request expects JSON (AJAX)
+        if ($request->ajax()) {
+            return response()->json($cars);
+        }
+    
+        // Otherwise, return view with the search results
+        return view('frontend.product-2', compact('cars', 'query'));
     }
+    
+
     public function getCars(Request $request)
     {
         $query = Car::query(); // Start building the query

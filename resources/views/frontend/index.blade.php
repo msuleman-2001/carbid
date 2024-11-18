@@ -130,10 +130,11 @@
                         </li>
 
                     </ul>
-                    <form class="search-form">
+                    <form class="search-form" action="/search-cars" method="GET">
                         <input type="text" placeholder="Search for brand, model...." name="query">
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </form>
+
 
                     <div class="search-bar d-md-none">
                         <a href="#"><i class="fas fa-search"></i></a>
@@ -254,61 +255,61 @@
         <br>
         <!--============= Car Auction Section Starts Here =============-->
         @php
-    // Chunk the vehicles into groups of 3
-    $chunks = $vehicles->chunk(3); 
-    $totalContainers = $chunks->count();
-@endphp
+            // Chunk the vehicles into groups of 3
+            $chunks = $vehicles->chunk(3);
+            $totalContainers = $chunks->count();
+        @endphp
 
-<div class="slider-container">
-    <div class="all-containers">
-        @foreach($chunks as $index => $vehicleChunk) <!-- Ensure this matches -->
-            <section class="vehicle-container" id="container-{{ $index }}"
-                     style="display: {{ $index == 0 ? 'block' : 'none' }};">
-                <div class="container">
-                    <div class="row justify-content-center mb-30-none">
-                        @foreach($vehicleChunk as $vehicle) <!-- Use $vehicle inside this loop -->
-                            @php
-                                // Decode the images JSON to extract the first image
-                                $images = json_decode($vehicle->images, true);
+        <div class="slider-container">
+            <div class="all-containers">
+                @foreach($chunks as $index => $vehicleChunk) <!-- Ensure this matches -->
+                            <section class="vehicle-container" id="container-{{ $index }}"
+                                style="display: {{ $index == 0 ? 'block' : 'none' }};">
+                                <div class="container">
+                                    <div class="row justify-content-center mb-30-none">
+                                        @foreach($vehicleChunk as $vehicle) <!-- Use $vehicle inside this loop -->
+                                                                @php
+                                                                    // Decode the images JSON to extract the first image
+                                                                    $images = json_decode($vehicle->images, true);
 
-                                // Get the first image, fallback to default
-                                $firstImage = isset($images[0]) ? trim($images[0], "'\"") : '/frontend/assets/images/auction/car/default-image.jpg';
-                            @endphp
+                                                                    // Get the first image, fallback to default
+                                                                    $firstImage = isset($images[0]) ? trim($images[0], "'\"") : '/frontend/assets/images/auction/car/default-image.jpg';
+                                                                @endphp
 
-                            <div class="col-sm-10 col-md-6 col-lg-4">
-                                <div class="auction-item-2">
-                                    <div class="auction-thumb">
-                                        <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}">
-                                            <img src="{{ $firstImage }}" 
-                                                 alt="{{ $vehicle->make }} {{ $vehicle->model }}" 
-                                                 class="img-fluid">
-                                        </a>
-                                    </div>
-                                    <div class="auction-content p-3">
-                                        <h6 class="title mb-2">
-                                            <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}">
-                                                {{ $vehicle->make }} {{ $vehicle->model }}
-                                            </a>
-                                        </h6>
-                                        <div class="bid-amount text-muted mb-2">
-                                            <p><strong>Year:</strong> {{ $vehicle->year }}</p>
-                                            <p><strong>Engine:</strong> {{ $vehicle->engine }}</p>
-                                            <p><strong>Lot#:</strong> {{ $vehicle->lot_number }}</p>
-                                        </div>
-                                        <div class="text-center">
-                                            <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}" 
-                                               class="custom-button btn btn-primary w-100">View Details</a>
-                                        </div>
+                                                                <div class="col-sm-10 col-md-6 col-lg-4">
+                                                                    <div class="auction-item-2">
+                                                                        <div class="auction-thumb">
+                                                                            <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}">
+                                                                                <img src="{{ $firstImage }}"
+                                                                                    alt="{{ $vehicle->make }} {{ $vehicle->model }}" class="img-fluid">
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="auction-content p-3">
+                                                                            <h6 class="title mb-2">
+                                                                                <a
+                                                                                    href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}">
+                                                                                    {{ $vehicle->make }} {{ $vehicle->model }}
+                                                                                </a>
+                                                                            </h6>
+                                                                            <div class="bid-amount text-muted mb-2">
+                                                                                <p><strong>Year:</strong> {{ $vehicle->year }}</p>
+                                                                                <p><strong>Engine:</strong> {{ $vehicle->engine }}</p>
+                                                                                <p><strong>Lot#:</strong> {{ $vehicle->lot_number }}</p>
+                                                                            </div>
+                                                                            <div class="text-center">
+                                                                                <a href="{{ route('frontend.vehicle-detail', ['slug' => $vehicle->slug]) }}"
+                                                                                    class="custom-button btn btn-primary w-100">View Details</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                        @endforeach
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </section>
-        @endforeach
-    </div>
-</div>
+                            </section>
+                @endforeach
+            </div>
+        </div>
 
 
         <!--============= Watches Auction Section Starts Here =============-->
